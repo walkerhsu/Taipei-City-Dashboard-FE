@@ -32,3 +32,6 @@ firebase.json
 
 dist.tar.gz
 *.sh
+
+# geojson
+*.geojson
