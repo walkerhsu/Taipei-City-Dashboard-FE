@@ -1,5 +1,41 @@
 {
 	"data": {
+		"1": {
+			"id": 1,
+			"index": "library",
+			"map_config": null,
+			"history_data": false,
+			"chart_config": {
+				"color": ["#ff5722", "#ff8c1a","#9c7a3e", "#b7e28e", "#7febd0", "#8ce8ff"],
+				"types": ["ColumnChart","BarPercentChart", "RadarChart"],
+				"unit": "冊數",
+				"categories": [
+					"103",
+					"104",
+					"105",
+					"106",
+					"107",
+					"108",
+					"109",
+					"110",
+					"111"
+				]
+			},
+			"name": "臺北市各級學校圖書館概況",
+			"source": "臺北市教育局",
+			"time_from": "2004-01-01T00:00:00+08:00",
+			"time_to": "2022-01-01T00:00:00+08:00",
+			"update_freq": 1,
+			"update_freq_unit": "day",
+			"short_desc": "103至111學年度臺北市各級學校圖書館概況",
+			"long_desc": "顯示103至111學年度臺北市各級學校圖書館概況，資料來源為臺北市教育局，每天更新，並提供一年內臺北市各級學校圖書館概況。",
+			"use_case": "屋齡的計算基準是以建物使用執照生效年份起算，這可以作為了解台北市建築屋齡分佈情況的參考依據。",
+			"links": [
+				"https://data.taipei/dataset/detail?id=67769480-7fe4-4976-88e2-1726fac9e5b8"
+			],
+			"tags": [],
+			"contributors": ["tuic"]
+		},
 		"5": {
 			"id": 5,
 			"index": "circular",

@@ -162,7 +162,7 @@ function clearFilters() {
                     <div v-for="item in filterOptions.type" :key="item">
                         <input type="checkbox" :id="item" :value="item" v-model="filterType" class="custom-check-input" />
                         <CustomCheckBox :for="item">{{ item }}</CustomCheckBox>
-                    </div>
+                    </div>r
                     <h3>依更新頻率篩選</h3>
                     <div v-for="item in filterOptions.frequency" :key="item">
                         <input type="checkbox" :id="item" :value="item" v-model="filterFrequency"

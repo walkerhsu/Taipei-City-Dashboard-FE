@@ -81,6 +81,7 @@ export const useContentStore = defineStore("content", {
 							},
 						});
 					}
+					print(this.currentDashboard.index)
 					// Pick out the list of favorite components
 					const favorites = this.dashboards.find(
 						(item) => item.index === "favorites"

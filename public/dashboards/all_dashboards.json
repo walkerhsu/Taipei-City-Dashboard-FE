@@ -78,6 +78,12 @@
 			"index": "demo",
 			"components": ["201", "202"],
 			"icon": "star_half"
+		},
+		{
+			"name": "test",
+			"index": "library",
+			"components": ["1", "42", "22", "79", "60", "107"],
+			"icon": "favorite"
 		}
 	]
 }
