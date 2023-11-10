@@ -3445,10 +3445,6 @@
 							"name": "電動充電樁"
 						},
 						{
-							"key": "occupied_rate",
-							"name": "使用率"
-						},
-						{
 							"key": "data_time",
 							"name": "更新時間"
 						}
@@ -3491,10 +3487,6 @@
 						{
 							"key": "charging",
 							"name": "電動充電樁"
-						},
-						{
-							"key": "occupied_rate",
-							"name": "使用率"
 						},
 						{
 							"key": "data_time",
