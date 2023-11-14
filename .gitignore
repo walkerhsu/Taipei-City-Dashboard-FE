@@ -35,3 +35,6 @@ dist.tar.gz
 
 # geojson
 *.geojson
+
+# 3d models
+/public/models

@@ -3,11 +3,101 @@
 		"1": {
 			"id": 1,
 			"index": "library",
-			"map_config": null,
+			"map_config": [
+				{
+					"index": "concentrics-2021",
+					"paint": {
+						"circle-opacity": 0,
+						"circle-stroke-width": 1,
+						"circle-stroke-color": "#f00"
+					},
+					"property": [
+						{
+							"key": "counts",
+							"name": "數量"
+						},
+						{
+							"key": "year",
+							"name": "年份"
+						}
+					],
+					"title": "2021 人數統計",
+					"type": "circle",
+					"size": "concentric-big"
+				},
+				{
+					"index": "concentrics-2022",
+					"paint": {
+						"circle-opacity": 0,
+						"circle-stroke-width": 1,
+						"circle-stroke-color": "#0f0"
+					},
+					"property": [
+						{
+							"key": "counts",
+							"name": "數量"
+						},
+						{
+							"key": "year",
+							"name": "年份"
+						}
+					],
+					"title": "2022 人數統計",
+					"type": "circle",
+					"size": "concentric-medium"
+				},
+				{
+					"index": "concentrics-2023",
+					"paint": {
+						"circle-opacity": 0,
+						"circle-stroke-width": 1,
+						"circle-stroke-color": "#fff"
+					},
+					"property": [
+						{
+							"key": "counts",
+							"name": "數量"
+						},
+						{
+							"key": "year",
+							"name": "年份"
+						}
+					],
+					"title": "2023 人數統計",
+					"type": "circle",
+					"size": "concentric-small"
+				},
+				{
+					"index": "士林區",
+					"paint": {
+						"fill-color": "#ff0000"
+					},
+					"property": [
+						{
+							"key": "counts",
+							"name": "數量"
+						},
+						{
+							"key": "year",
+							"name": "年份"
+						}
+					],
+					"title": "2023 人數統計",
+					"type": "fill"
+				}
+				
+			],
 			"history_data": false,
 			"chart_config": {
-				"color": ["#ff5722", "#ff8c1a","#9c7a3e", "#b7e28e", "#7febd0", "#8ce8ff"],
-				"types": ["ColumnChart","BarPercentChart", "RadarChart"],
+				"color": [
+					"#ff5722",
+					"#ff8c1a",
+					"#9c7a3e",
+					"#b7e28e",
+					"#7febd0",
+					"#8ce8ff"
+				],
+				"types": ["ColumnChart", "BarPercentChart", "RadarChart", "DistrictChart"],
 				"unit": "冊數",
 				"categories": [
 					"103",
@@ -19,6 +109,23 @@
 					"109",
 					"110",
 					"111"
+				],
+				"map_filter": [
+					"dist",
+					[
+						"北投區",
+						"士林區",
+						"內湖區",
+						"南港區",
+						"松山區",
+						"信義區",
+						"中山區",
+						"大同區",
+						"中正區",
+						"萬華區",
+						"大安區",
+						"文山區"
+					]
 				]
 			},
 			"name": "臺北市各級學校圖書館概況",
@@ -4161,7 +4268,10 @@
 				{
 					"index": "dis_origin_center",
 					"paint": {
-						"circle-color": "pink"
+						"circle-opacity": 0,
+						"circle-radius": 5,
+						"circle-stroke-width": 1,
+						"circle-stroke-color": "#fff"
 					},
 					"property": [
 						{ "key": "name", "name": "機構名稱" },

@@ -178,6 +178,8 @@ export const useMapStore = defineStore("map", {
 			});
 			if (map_config.type === "arc") {
 				this.AddArcMapLayer(map_config, data);
+			} else if (map_config.type === "tube") {
+				this.AddTubeMapLayer(map_config, data);
 			} else {
 				this.addMapLayer(map_config);
 			}
@@ -313,6 +315,82 @@ export const useMapStore = defineStore("map", {
 							lineMesh.material.vertexColors = true;
 
 							tb.add(lineMesh);
+						}
+					},
+					render: function () {
+						tb.update(); //update Threebox scene
+					},
+				});
+				this.currentLayers.push(map_config.layerId);
+				this.mapConfigs[map_config.layerId] = map_config;
+				this.currentVisibleLayers.push(map_config.layerId);
+				this.loadingLayers = this.loadingLayers.filter(
+					(el) => el !== map_config.layerId
+				);
+			}, delay);
+		},
+		AddTubeMapLayer(map_config, data) {
+			const authStore = useAuthStore();
+			// draw a 3D tube using three box
+			const sides = 8;
+			// const height = 100;
+			const radius = 100;
+			this.loadingLayers.push("rendering");
+			const tb = new Threebox(
+				this.map,
+				this.map.getCanvas().getContext("webgl"), //get the context from the map canvas
+				{ defaultLights: true }
+			);
+
+			var lineGeometry = [];
+			var origin = [121.5436, 25.02605];
+
+			for (var l = 0; l<200; l++) {
+
+				var delta = [
+					Math.sin(l/5) * l/100000, 
+					Math.cos(l/5) * l/100000, 
+					l*5
+				]
+
+				var newCoordinate = origin.map(function(d,i){
+					return d + delta[i]
+				})
+				// newCoordinate.push(80000)
+				lineGeometry.push(newCoordinate)
+			}
+
+			// console.log("Tube's line geometry: ", lineGeometry);
+		
+			const delay = authStore.isMobileDevice ? 2000 : 2000;
+			setTimeout(() => {
+				this.map.addLayer({
+					id: map_config.layerId,
+					type: "custom",
+					renderingMode: "3d",
+					onAdd: function () {
+						for (let i = 0; i < data.features.length; i++) {
+							let line = data.features[i].geometry.coordinates;
+							line.push(0)
+							let lineOptions = {
+								geometry: line,
+								color: 0xffffff,
+								width: 2,
+								opacity: 0.5,
+							};
+							let lineMesh = tb.line(lineOptions);
+							tb.add(lineMesh);
+							let tubeOptions = {
+								geometry: lineGeometry,
+								sides: sides,
+								radius: radius,
+								material: 'MeshPhysicalMaterial',
+								color:'#ff0000',
+								// opacity: 1,
+							};
+							let tubeMesh = tb.tube(tubeOptions);
+							tb.add(tubeMesh);
+							// tubeMesh.position.z = height / 2;
 						}
 					},
 					render: function () {
