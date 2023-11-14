@@ -75,7 +75,7 @@ export const TaipeiVillage = {
 export const TaipeiBuilding = {
 	id: "taipei_building_3d",
 	source: "taipei_building_3d_source",
-	"source-layer": "tp_building_height84-18p8j0",
+	"source-layer": "tp_building_height84-49yss2",
 	type: "fill-extrusion",
 	minzoom: 14,
 	paint: {
@@ -195,6 +195,59 @@ export const maplayerCommonPaint = {
 			7,
 		],
 	},
+	"circle-concentric-small": {
+		"circle-radius": [
+			"interpolate",
+			["linear"],
+			["zoom"],
+			11.99,
+			5,
+			12,
+			5,
+			13.5,
+			10,
+			15,
+			20,
+			22,
+			40,
+		],
+	},
+
+	"circle-concentric-medium": {
+		"circle-radius": [
+			"interpolate",
+			["linear"],
+			["zoom"],
+			11.99,
+			10,
+			12,
+			10,
+			13.5,
+			20,
+			15,
+			40,
+			22,
+			80,
+		],
+	},
+	"circle-concentric-big": {
+		"circle-radius": [
+			"interpolate",
+			["linear"],
+			["zoom"],
+			11.99,
+			15,
+			12,
+			15,
+			13.5,
+			30,
+			15,
+			60,
+			22,
+			120,
+		],
+	},
+
 	"fill-extrusion": {
 		"fill-extrusion-opacity": 0.5,
 	},
