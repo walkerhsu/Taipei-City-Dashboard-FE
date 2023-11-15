@@ -98,6 +98,7 @@
 					"#8ce8ff"
 				],
 				"types": ["ColumnChart", "BarPercentChart", "RadarChart", "DistrictChart"],
+
 				"unit": "冊數",
 				"categories": [
 					"103",
@@ -109,6 +110,7 @@
 					"109",
 					"110",
 					"111"
+
 				],
 				"map_filter": [
 					"dist",
@@ -126,6 +128,7 @@
 						"大安區",
 						"文山區"
 					]
+
 				]
 			},
 			"name": "臺北市各級學校圖書館概況",
@@ -4268,10 +4271,12 @@
 				{
 					"index": "dis_origin_center",
 					"paint": {
+
 						"circle-opacity": 0,
 						"circle-radius": 5,
 						"circle-stroke-width": 1,
 						"circle-stroke-color": "#fff"
+
 					},
 					"property": [
 						{ "key": "name", "name": "機構名稱" },
