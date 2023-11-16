@@ -1,6 +1,7 @@
 export const chartTypes = {
 	DonutChart: "圓餅圖",
 	BarChart: "橫向長條圖",
+	BarChartRace: "橫向競賽圖",
 	ColumnChart: "縱向長條圖",
 	BarPercentChart: "長條圖(%)",
 	TreemapChart: "矩形圖",
