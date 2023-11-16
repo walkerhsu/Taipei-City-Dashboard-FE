@@ -5,17 +5,13 @@
 			"index": "library",
 			"map_config": [
 				{
-					"index": "CCTV_scatter",
-					"paint": {
-						"circle-color": "red"
-					},
-					"type": "circle",
+					"index": "taxiSpots",
+					"type": "symbol",
 					"title": "站",
-					"size": "small",
-					"icon": null
+					"icon": "triangle_white"
 				},
 				{
-					"index": "concentrics-2021",
+					"index": "taxiSpots",
 					"paint": {
 						"circle-opacity": 0,
 						"circle-stroke-width": 1,
@@ -33,10 +29,10 @@
 					],
 					"title": "2021 人數統計",
 					"type": "circle",
-					"size": "concentric-big"
+					"size": "heapmap"
 				},
 				{
-					"index": "concentrics-2022",
+					"index": "CCTV_scatter",
 					"paint": {
 						"circle-opacity": 0,
 						"circle-stroke-width": 1,
@@ -44,12 +40,8 @@
 					},
 					"property": [
 						{
-							"key": "counts",
-							"name": "數量"
-						},
-						{
-							"key": "year",
-							"name": "年份"
+							"key": "攝影機編號",
+							"name": "攝影機編號與地點"
 						}
 					],
 					"title": "2022 人數統計",
@@ -57,7 +49,7 @@
 					"size": "concentric-medium"
 				},
 				{
-					"index": "concentrics-2023",
+					"index": "taxiSpots",
 					"paint": {
 						"circle-opacity": 0,
 						"circle-stroke-width": 1,
@@ -358,6 +350,18 @@
 					"title": "警察局"
 				},
 				{
+					"index": "CCTV_scatter",
+					"property": [
+						{
+							"key": "攝影機編號",
+							"name": "攝影機編號與地點"
+						}
+					],
+					"title": "臺北市CCTV設施",
+					"type": "symbol",
+					"icon": "cctv"
+				},
+				{
 					"index": "patrol_district",
 					"paint": {
 						"line-color": "#009688"
@@ -381,7 +385,7 @@
 						}
 					],
 					"type": "line",
-					"icon": "dash",
+					"icon": "wide",
 					"title": "警局轄區"
 				}
 			],

@@ -247,7 +247,7 @@ export const maplayerCommonPaint = {
 			120,
 		],
 	},
-
+	// 3d paint
 	"fill-extrusion": {
 		"fill-extrusion-opacity": 0.5,
 	},
@@ -275,6 +275,14 @@ export const maplayerCommonPaint = {
 			3,
 		],
 	},
+	
+	"line-gradient": {
+		// "line-gradient": "rgb(255, 255, 0)",
+		"line-gradient": "#85bdbd",
+	},
+	"line-gap-width":{
+		"line-gap-width": 5,
+	},
 	"line-wide": {
 		"line-width": [
 			"interpolate",
@@ -290,6 +298,7 @@ export const maplayerCommonPaint = {
 	},
 	"line-dash": {
 		"line-dasharray": [2, 4],
+		"line-opacity": 0.9
 	},
 	symbol: {},
 };
@@ -321,6 +330,20 @@ export const maplayerCommonLayout = {
 	},
 	"symbol-metro": {
 		"icon-image": "metro",
+		"icon-size": [
+			"interpolate",
+			["linear"],
+			["zoom"],
+			11.99,
+			0.3,
+			14,
+			0.4,
+			22,
+			0.9,
+		],
+	},
+	"symbol-cctv": {
+		"icon-image": "cctv",
 		"icon-size": [
 			"interpolate",
 			["linear"],
