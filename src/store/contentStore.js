@@ -153,6 +153,7 @@ export const useContentStore = defineStore("content", {
 					.then((rs) => {
 						this.currentDashboard.content[index].chart_data =
 							rs.data.data;
+						// console.log(rs.data.data);
 					})
 					.catch((e) => {
 						console.error(e);
@@ -170,6 +171,7 @@ export const useContentStore = defineStore("content", {
 				}
 			});
 		},
+		
 		// 7. Call an API to get contributor data (result consists of id, name, link)
 		setContributors() {
 			axios
