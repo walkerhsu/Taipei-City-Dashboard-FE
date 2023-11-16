@@ -179,6 +179,8 @@ export const useMapStore = defineStore("map", {
 				this.AddArcMapLayer(map_config, data);
 			} else if (map_config.type === "tube") {
 				this.AddTubeMapLayer(map_config, data);
+			} else if (map_config.type === "3Dmodel") {
+				this.Add3DModelLayer(map_config, data);
 			} else {
 				this.addMapLayer(map_config);
 			}
@@ -387,6 +389,7 @@ export const useMapStore = defineStore("map", {
 								color:'#ff0000',
 								// opacity: 1,
 							};
+							
 							let tubeMesh = tb.tube(tubeOptions);
 							tb.add(tubeMesh);
 							// tubeMesh.position.z = height / 2;
@@ -403,6 +406,48 @@ export const useMapStore = defineStore("map", {
 					(el) => el !== map_config.layerId
 				);
 			}, delay);
+		},
+		Add3DModelLayer(map_config, data) {
+			// const authStore = useAuthStore();
+			// render a 3D model using three box
+			const tb = (window.tb = new Threebox(
+				this.map,
+				this.map.getCanvas().getContext("webgl"), //get the context from the map canvas
+				{ defaultLights: true }
+			));
+			setTimeout(() => {
+				this.map.addLayer({
+					id: map_config.layerId,
+					type: "custom",
+					renderingMode: "3d",
+					onAdd: function () {
+						for (let i = 0; i < 1; i++) {
+							const model = data.features[0];
+							const modelOptions = {
+								obj: `${BASE_URL}/models/${model.model_id}.glb`,
+								type: "gltf",
+								scale: 10,
+								units: "meters",
+								rotation: { x: 90, y: 0, z: 0 },
+								anchor: "center",
+							};
+							tb.loadObj(modelOptions, function (model) {
+								let garden = model.setCoords(data.features[i].geometry.coordinates);
+								tb.add(garden);
+							})
+						}
+					},
+					render: function () {
+						tb.update(); //update Threebox scene
+					}
+				})
+				this.currentLayers.push(map_config.layerId);
+				this.mapConfigs[map_config.layerId] = map_config;
+				this.currentVisibleLayers.push(map_config.layerId);
+				this.loadingLayers = this.loadingLayers.filter(
+					(el) => el !== map_config.layerId
+				);
+			}, 2000)
 		},
 		//  5. Turn on the visibility for a exisiting map layer
 		turnOnMapLayerVisibility(mapLayerId) {
