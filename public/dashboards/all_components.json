@@ -5,6 +5,16 @@
 			"index": "library",
 			"map_config": [
 				{
+					"index": "CCTV_scatter",
+					"paint": {
+						"circle-color": "red"
+					},
+					"type": "circle",
+					"title": "站",
+					"size": "small",
+					"icon": null
+				},
+				{
 					"index": "concentrics-2021",
 					"paint": {
 						"circle-opacity": 0,

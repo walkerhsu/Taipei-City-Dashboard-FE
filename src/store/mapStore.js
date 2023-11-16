@@ -28,7 +28,6 @@ import {
 import { savedLocations } from "../assets/configs/mapbox/savedLocations.js";
 import { calculateGradientSteps } from "../assets/configs/mapbox/arcGradient";
 import MapPopup from "../components/map/MapPopup.vue";
-
 const { BASE_URL } = import.meta.env;
 
 export const useMapStore = defineStore("map", {
