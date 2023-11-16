@@ -95,19 +95,24 @@
 					"title": "2023 人數統計",
 					"type": "fill"
 				}
-				
 			],
 			"history_data": false,
 			"chart_config": {
 				"color": [
-					"#ff5722",
-					"#ff8c1a",
+					"#CCCCFF",
+					"#2AAA8A",
 					"#9c7a3e",
 					"#b7e28e",
 					"#7febd0",
 					"#8ce8ff"
 				],
-				"types": ["ColumnChart", "BarPercentChart", "RadarChart", "DistrictChart"],
+				"types": [
+					"ColumnChart",
+					"BarPercentChart",
+					"RadarChart",
+					"DistrictChart"
+				],
+
 				"unit": "冊數",
 				"categories": [
 					"103",
@@ -150,6 +155,90 @@
 			"links": [
 				"https://data.taipei/dataset/detail?id=67769480-7fe4-4976-88e2-1726fac9e5b8"
 			],
+			"tags": [],
+			"contributors": ["tuic"]
+		},
+		"2": {
+			"id": 2,
+			"index": "tourists",
+			"map_config": [
+				{
+					"index": "taipei_tourists",
+					"paint": {
+						"circle-color": [
+							"match",
+							["get", "all_pumb_lights"],
+							"+",
+							"#ff9800",
+							"#00B2FF"
+						]
+					},
+					"property": [
+						{
+							"key": "station_name",
+							"name": "站名"
+						},
+						{
+							"key": "all_pumb_lights",
+							"name": "總抽水狀態"
+						},
+						{
+							"key": "warning_level",
+							"name": "目前警戒值"
+						},
+						{
+							"key": "start_pumping_level",
+							"name": "抽水起始值"
+						},
+						{
+							"key": "door_num",
+							"name": "水門數目"
+						},
+						{
+							"key": "pumb_num",
+							"name": "抽水機數目"
+						},
+						{
+							"key": "river_basin",
+							"name": "流域"
+						},
+						{
+							"key": "rec_time",
+							"name": "記錄時間"
+						}
+					],
+					"type": "circle",
+					"size": "big",
+					"title": "抽水站"
+				}
+			],
+			"chart_config": {
+				"types": ["ColumnChart", "BarPercentChart"],
+				"color": [
+					"#CCCCFF",
+					"#2AAA8A",
+					"#9c7a3e",
+					"#b7e28e",
+					"#7febd0",
+					"#8ce8ff"
+				],
+				"unit": "人次",
+				"categories": [
+					77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91,
+					92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104,
+					105, 106, 107, 108, 109, 110, 111
+				]
+			},
+			"name": "臺北市主要觀光遊憩區遊客人次",
+			"source": "主計處",
+			"time_from": "1987-01-01T00:00:00+08:00",
+			"time_to": "2022-12-31T00:00:00+08:00",
+			"update_freq": 1,
+			"update_freq_unit": "year",
+			"short_desc": "臺北市主要觀光遊憩區遊客人次時間數列統計資料",
+			"long_desc": "顯示臺北市主要觀光遊憩區遊客人次時間數列統計資料，資料來源為主計處，每年更新。",
+			"use_case": "用此得知台北著名觀光旅遊景點狀況，分析觀光人次，做出連結與比較",
+			"links": "https://data.taipei/dataset/detail?id=1ddeff62-8872-441c-aaf2-10fd0515ddb1",
 			"tags": [],
 			"contributors": ["tuic"]
 		},
