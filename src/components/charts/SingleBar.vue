@@ -7,9 +7,7 @@ const yLabel = computed(() => {
 	return props.title.length > 7 ? props.title.slice(0, 6) + "..." : props.title
 });
 const barWidth = computed(() => {
-
-	return (props.number / props.maxNumber * 100) >= 25 ?
-		(props.number / props.maxNumber * 100) - 25 : 1
+	return (props.number / props.maxNumber * 75)
 });
 
 </script>

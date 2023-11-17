@@ -29,7 +29,7 @@
 					],
 					"title": "2021 人數統計",
 					"type": "circle",
-					"size": "heapmap"
+					"dynamic": true
 				},
 				{
 					"index": "CCTV_scatter",
@@ -88,6 +88,7 @@
 					"type": "fill"
 				}
 			],
+			"dynamic": true,
 			"history_data": false,
 			"chart_config": {
 				"color": [
@@ -4389,22 +4390,22 @@
 			"chart_config": {
 				"types": ["DistrictChart", "ColumnChart"],
 				"color": ["#B4654A"],
-				"unit": "間",
+				"unit": "",
 				"map_filter": [
 					"town",
 					[
-						"北投區",
-						"士林區",
-						"內湖區",
-						"南港區",
-						"松山區",
-						"信義區",
-						"中山區",
-						"大同區",
-						"中正區",
-						"萬華區",
-						"大安區",
-						"文山區"
+						"信義站",
+						"中正站",
+						"大直站",
+						"南港站",
+						"內湖站",
+						"木柵站",
+						"承德站",
+						"中北站",
+						"向陽站",
+						"大安站",
+						"天母站",
+						"延平站"
 					]
 				]
 			},
@@ -4433,12 +4434,116 @@
 			"source": "社會局",
 			"time_from": "2023-06-11T00:00:00+08:00",
 			"update_freq": 1,
-			"update_freq_unit": "month",
+			"update_freq_unit": "month"
+		},
+		"301": {
+			"id": 301,
+			"index": "taipei_environment",
+			"history_data": false,
+			"map_config": [
+				{
+					"index": "taipei_environment",
+					"paint": {
+						"circle-color": [
+							"case",
+							["<", ["to-number", ["get", "AQI"]], 50],
+							"green",
+							["<", ["to-number", ["get", "AQI"]], 100],
+							"yellow",
+							["<", ["to-number", ["get", "AQI"]], 150],
+							"orange",
+							["<", ["to-number", ["get", "AQI"]], 200],
+							"red",
+							["<", ["to-number", ["get", "AQI"]], 300],
+							"purple",
+							"maroon"
+						],
+						"circle-stroke-width": 1
+					},
+					"property": [
+						{
+							"key": "測站",
+							"name": "測站"
+						},
+						{
+							"key": "地址",
+							"name": "地址"
+						},
+						{
+							"key": "AQI",
+							"name": "AQI"
+						}
+					],
+					"title": "環境空氣品質",
+					"type": "circle",
+					"size": "big"
+				}
+			],
+			"chart_config": {
+				"types": ["ColumnChart"],
+				"color": ["#B4654A"],
+				"unit": "",
+				"map_filter": [
+					"測站",
+					[
+						"信義站",
+						"中正站",
+						"大直站",
+						"南港站",
+						"內湖站",
+						"木柵站",
+						"承德站",
+						"中北站",
+						"向陽站",
+						"大安站",
+						"天母站",
+						"延平站"
+					]
+				]
+			},
+			"name": "台北市環境空氣品質",
+			"source": "環境品質資訊網",
+			"time_from": "2023-11-10T00:00:00+08:00",
+			"time_to": "2023-11-16T00:00:00+08:00",
+			"update_freq": 1,
+			"update_freq_unit": "day",
 			"short_desc": "",
 			"long_desc": "",
 			"use_case": "",
 			"tags": [],
 			"links": [
+				"https://data.taipei/dataset/detail?id=6079d6e8-7657-4007-b1c2-429733dbd762"
+			],
+			"contributors": ["tuic"]
+		},
+		"302": {
+			"id": 302,
+			"index": "taipei_environment_daily",
+			"map_config": null,
+			"chart_config": {
+				"types": ["BarChartRace"],
+				"color": [
+					"#6eeb34",
+					"#a1cc3b",
+					"#c2cc3b",
+					"#ccaf3b",
+					"#cc8d3b",
+					"#cc533b"
+				],
+				"unit": ""
+			},
+			"name": "台北市每日環境空氣品質比較",
+			"source": "環境品質資訊網",
+			"time_from": "2023-11-10T00:00:00+08:00",
+			"time_to": "2023-11-16T00:00:00+08:00",
+			"update_freq": 1,
+			"update_freq_unit": "day",
+			"short_desc": "",
+			"long_desc": "",
+			"use_case": "",
+			"tags": [],
+			"links": [
+				"https://data.taipei/dataset/detail?id=6079d6e8-7657-4007-b1c2-429733dbd762"
 			],
 			"contributors": ["tuic"]
 		}

@@ -61,7 +61,7 @@ onMounted(() => {
 		} else {
 			historyDataIndex.value++;
 		}
-	}, 2000);
+	}, 3000);
 });
 
 onUnmounted(() => {
@@ -71,7 +71,12 @@ onUnmounted(() => {
 </script>
 
 <template>
-	<div v-if="activeChart === 'BarChartRace'">
+	<div v-if="activeChart === 'BarChartRace'" class="BarChartRace">
+		<transition name="slide" mode="out-in">
+			<div class="BarChartRaceYear" :key="`${historyDataIndex}_${series[historyDataIndex]['name']}`">
+				{{ series[historyDataIndex]['name'] }}
+			</div>
+		</transition>
 		<TransitionGroup name="list" tag="ul">
 			<li v-for="(data, index) in series[historyDataIndex]['data']" 
 			:key="data['x']+'-'+data['x']">
@@ -82,6 +87,13 @@ onUnmounted(() => {
 </template>
 
 <style lang="scss">
+.BarChartRace {
+	padding: 20px;
+}
+.BarChartRaceYear{
+	// center
+	text-align: center;
+}
 .list-move, /* apply transition to moving elements */
 .list-enter-active,
 .list-leave-active {
@@ -98,6 +110,19 @@ onUnmounted(() => {
    animations can be calculated correctly. */
 .list-leave-active {
   position: absolute;
+}
+
+.slide-leave-active,
+.slide-enter-active {
+  transition: all .2s ease;
+}
+
+.slide-enter-from {
+  transform: translateX(-100%);
+}
+
+.slide-leave-to {
+  transform: translateX(100%);
 }
 
 </style>

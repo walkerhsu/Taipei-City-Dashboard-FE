@@ -76,6 +76,7 @@ export const useMapStore = defineStore("map", {
 						(el) => el !== "rendering"
 					);
 				});
+				
 		},
 		// 2. Adds three basic layers to the map (Taipei District, Taipei Village labels, and Taipei 3D Buildings)
 		// Due to performance concerns, Taipei 3D Buildings won't be added in the mobile version
