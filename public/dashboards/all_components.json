@@ -2035,7 +2035,7 @@
 			],
 			"history_data": true,
 			"chart_config": {
-				"types": ["BarChart", "DonutChart"],
+				"types": ["BarChart", "DonutChart", "BarChartRace"],
 				"color": ["#fc9f0b", "#dac117", "#FDD79B", "#CA7F09"],
 				"unit": "件",
 				"map_filter": [
@@ -3248,7 +3248,7 @@
 							"name": "介紹"
 						}
 					],
-					"type": "circle",
+					"type": "3Dmodel",
 					"size": "big",
 					"title": "田園城市"
 				}
