@@ -4,7 +4,9 @@ import json
 
 if __name__ == "__main__":
     jsonFilePath = sys.argv[1]
-    chartjsonFilePath = sys.argv[2]
+    geojsonFilePath = sys.argv[2]
+    jsonDataPath = sys.argv[3]
+    chartDataPath = sys.argv[4]
     # read json file
     allData = {}
     days = 7
@@ -22,21 +24,21 @@ if __name__ == "__main__":
         "features": []
     }
     features = []
-    for i in range(0, 84, days):
-        # i from 0 to 83
-        features.append({
-            "type": "Feature",
-            "properties": {
-                "測站": allData["測站"][i],
-                "地址": allData["地址"][i],
-                "AQI": allData["AQI"][i],
-                "日期": allData["日期"][i+6],
-            },
-            "geometry": {
-                "type": "Point",
-                "coordinates": [float(allData["經度"][i]), float(allData["緯度"][i])]
-            }
-        })
+    # for i in range(0, 84, days):
+    #     # i from 0 to 83
+    #     features.append({
+    #         "type": "Feature",
+    #         "properties": {
+    #             "測站": allData["測站"][i],
+    #             "地址": allData["地址"][i],
+    #             "AQI": allData["AQI"][i],
+    #             "日期": allData["日期"][i+6],
+    #         },
+    #         "geometry": {
+    #             "type": "Point",
+    #             "coordinates": [float(allData["經度"][i]), float(allData["緯度"][i])]
+    #         }
+    #     })
     # geojsonDict["features"] = features
     # jsonString = json.dumps(geojsonDict, indent=4, ensure_ascii=False)
     # # without history data
