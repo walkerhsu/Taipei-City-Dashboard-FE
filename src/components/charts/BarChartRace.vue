@@ -2,7 +2,6 @@
 
 <script setup>
 import { ref, computed, onMounted, onUnmounted } from "vue";
-import { useMapStore } from "../../store/mapStore";
 import SingleBar from "./SingleBar.vue";
 
 const props = defineProps([
@@ -11,47 +10,37 @@ const props = defineProps([
 	"series",
 	"map_config",
 ]);
-const mapStore = useMapStore();
 
 // use transition-group to perform bar chart race animation
-
-const NameToColor = computed(() => {
-	const colorMap = {};
+function getColor(index, name) {
+	props.chart_config['fixed']
+	if (props.chart_config['fixed']) {
+		return this.colorMap[index];
+	} else {
+		return this.colorMap[name];
+	}
+}
+const colorMap = {};
+if (props.chart_config['fixed']) {
+	for (let i = 0; i < props.chart_config.color.length; i++) {
+		colorMap[i] =
+		props.chart_config.color[i % props.chart_config.color.length];
+	}
+} else {
 	for (let i = 0; i < props.series[0]['data'].length; i++) {
 		colorMap[props.series[0]['data'][i]['x']] =
-			props.chart_config.color[i % props.chart_config.color.length];
+		props.chart_config.color[i % props.chart_config.color.length];
 	}
-	return colorMap;
-});
+}
 
 const oneBarHeight = computed(() => {
 	return `30px`;
 });
 
-const selectedIndex = ref(null);
-
 const maxNumber = computed(() => {
 	return props.series[historyDataIndex.value]['data'][0]['y'];
 })
 
-function handleDataSelection(e, chartContext, config) {
-	if (!props.chart_config.map_filter) {
-		return;
-	}
-	if (config.dataPointIndex !== selectedIndex.value) {
-		mapStore.addLayerFilter(
-			`${props.map_config[0].index}-${props.map_config[0].type}`,
-			props.chart_config.map_filter[0],
-			props.chart_config.map_filter[1][config.dataPointIndex]
-		);
-		selectedIndex.value = config.dataPointIndex;
-	} else {
-		mapStore.clearLayerFilter(
-			`${props.map_config[0].index}-${props.map_config[0].type}`
-		);
-		selectedIndex.value = null;
-	}
-}
 const historyDataIndex = ref(0);
 let timer = null;
 onMounted(() => {
@@ -80,7 +69,8 @@ onUnmounted(() => {
 		<TransitionGroup name="list" tag="ul">
 			<li v-for="(data, index) in series[historyDataIndex]['data']" 
 			:key="data['x']+'-'+data['x']">
-				<SingleBar :title="data['x']" :number="data['y']" :handleDataSelection="handleDataSelection" :height="oneBarHeight" :index="index" :maxNumber="maxNumber" :color="NameToColor[data['x']]"/>
+				<SingleBar :title="data['x']" :number="data['y']" :height="oneBarHeight" 
+				:index="index" :maxNumber="maxNumber" :color="getColor(index, data['x'])"/>
 			</li>
 		</TransitionGroup>
 	</div>

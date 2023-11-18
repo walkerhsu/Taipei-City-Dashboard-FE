@@ -81,7 +81,7 @@
 		{
 			"name": "Demo",
 			"index": "demo",
-			"components": ["301","302"],
+			"components": ["301","302","303","306", "307"],
 			"icon": "star_half"
 		}
 	]

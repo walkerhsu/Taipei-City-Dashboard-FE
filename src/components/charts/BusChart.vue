@@ -9,7 +9,6 @@ const color = ref("#c6c5c5");
 const pinkColor = ref("#eea5a5");
 const busIndex = ref(0);
 const sortedBusNames = ref([...busNames]);
-sortedBusNames.value.shift();
 function shiftBusNames() {
 	sortedBusNames.value.push(sortedBusNames.value.shift());
 }
