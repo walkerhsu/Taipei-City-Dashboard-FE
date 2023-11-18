@@ -3,50 +3,58 @@ import sys
 import requests
 import json
 from dotenv import load_dotenv
-       
-def addBoundaryProperty(inputfile, outputfile):
+
+def queryBoundaries(lng, lat):
     load_dotenv()
     ACCESS_TOKEN = os.getenv("VITE_MAPBOXTOKEN")
+    MAPBOXTILE_DAAN = os.getenv("VITE_MAPBOXTILE_DAAN")
+    MAPBOXTILE_ZHONGZHENG = os.getenv("VITE_MAPBOXTILE_ZHONGZHENG")
+    MAPBOXTILE_XINYI = os.getenv("VITE_MAPBOXTILE_XINYI")
+    MAPBOXTILE_SONGSHAN = os.getenv("VITE_MAPBOXTILE_SONGSHAN")
+    MAPBOXTILE_NANGANG = os.getenv("VITE_MAPBOXTILE_NANGANG")
+    MAPBOXTILE_SHILIN = os.getenv("VITE_MAPBOXTILE_SHILIN")
+    MAPBOXTILE_BEITOU = os.getenv("VITE_MAPBOXTILE_BEITOU")
+    MAPBOXTILE_NEIHU = os.getenv("VITE_MAPBOXTILE_NEIHU")
+    MAPBOXTILE_WENSHAN = os.getenv("VITE_MAPBOXTILE_WENSHAN")
+    MAPBOXTILE_ZHONGSHAN = os.getenv("VITE_MAPBOXTILE_ZHONGSHAN")
+    MAPBOXTILE_ZHONGZHENG = os.getenv("VITE_MAPBOXTILE_ZHONGZHENG")
+    MAPBOXTILE_WANHUA = os.getenv("VITE_MAPBOXTILE_WANHUA")
     
-    all_districts = {
-        "DAAN": os.getenv("VITE_MAPBOXTILE_DAAN"),
-        "ZHONGZHENG": os.getenv("VITE_MAPBOXTILE_ZHONGZHENG"),
-        "XINYI": os.getenv("VITE_MAPBOXTILE_XINYI"),
-        "SONGSHAN": os.getenv("VITE_MAPBOXTILE_SONGSHAN"),
-        "NANGANG": os.getenv("VITE_MAPBOXTILE_NANGANG"),
-        "SHILIN": os.getenv("VITE_MAPBOXTILE_SHILIN"),
-        "BEITOU": os.getenv("VITE_MAPBOXTILE_BEITOU"),
-        "NEIHU": os.getenv("VITE_MAPBOXTILE_NEIHU"),
-        "WENSHAN": os.getenv("VITE_MAPBOXTILE_WENSHAN"),
-        "ZHONGSHAN": os.getenv("VITE_MAPBOXTILE_ZHONGSHAN"),
-        "WANHUA": os.getenv("VITE_MAPBOXTILE_WANHUA")
-    }
+    all_districts = []
+    all_districts.append({"DAAN": MAPBOXTILE_DAAN})
+    all_districts.append({"ZHONGZHENG": MAPBOXTILE_ZHONGZHENG})
+    all_districts.append({"XINYI": MAPBOXTILE_XINYI})
+    all_districts.append({"SONGSHAN": MAPBOXTILE_SONGSHAN})
+    all_districts.append({"NANGANG": MAPBOXTILE_NANGANG})
+    all_districts.append({"SHILIN": MAPBOXTILE_SHILIN})
+    all_districts.append({"BEITOU": MAPBOXTILE_BEITOU})
+    all_districts.append({"NEIHU": MAPBOXTILE_NEIHU})
+    all_districts.append({"WENSHAN": MAPBOXTILE_WENSHAN})
+    all_districts.append({"ZHONGSHAN": MAPBOXTILE_ZHONGSHAN})
+    all_districts.append({"ZHONGZHENG": MAPBOXTILE_ZHONGZHENG})
+    all_districts.append({"WANHUA": MAPBOXTILE_WANHUA})
+    
+    # print(all_districts)
+    
+    in_district = ""
     
     parameters = {
         "access_token": ACCESS_TOKEN,
     }
     
-    with open(inputfile, 'r') as file:
-        data = json.load(file)
-        
-    for feature in data['features']:
-        lng, lat = feature['geometry']['coordinates']
-        in_district = ""
-        # Check which district the point belongs to
-        for district, tile in all_districts.items():
-            res = requests.get(f'https://api.mapbox.com/v4/{tile}/tilequery/{lng},{lat}.json', params=parameters)
-            if res.json()['features']:
-                in_district = district
-                break
-
-        # Add district name to properties
-        feature['properties']['district'] = in_district
-
-    # Write output file
-    with open(outputfile, 'w', encoding='utf-8') as file:
-        json.dump(data, file, indent=4, ensure_ascii=False)
+    for i in range(0, len(all_districts)):
+        for key, value in all_districts[i].items():
+            # print(key, value)
+            res = requests.get(f'https://api.mapbox.com/v4/{value}/tilequery/{lng},{lat}.json', params=parameters)
+            # print(res.json()['features'])
+            if(res.json()['features'] != []):
+                in_district = key
+            
+    print(in_district)
         
 if __name__ == "__main__":
-    inputfile = sys.argv[1]
-    outputfile = sys.argv[2]
-    addBoundaryProperty(inputfile, outputfile)
+    # lng = sys.argv[1]
+    # lat = sys.argv[2]
+    lng = 121.54399
+    lat = 25.024624
+    queryBoundaries(lng, lat)

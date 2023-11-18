@@ -38,10 +38,15 @@ if __name__ == "__main__":
             and response.json()["status"] == "ZERO_RESULTS"
         ):
             print(location)
+            result.append(response.json()["status"])
             continue
-        result.append(response.json()["results"][0]["geometry"]["location"])
+        else:
+        	result.append(response.json()["results"][0]["geometry"]["location"])
+        
     
-    # print(result)
+    print(result)
+    # print(len(data["data"][0]["data"]))
+    # print(len(result))
         
     with open(outputPath, 'w', encoding=encoding) as jsonf: 
         jsonString = json.dumps(result, indent=4, ensure_ascii=False)

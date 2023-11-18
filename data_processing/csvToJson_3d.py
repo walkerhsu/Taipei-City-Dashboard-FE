@@ -2,7 +2,7 @@ import csv
 import json 
 import sys
 
-encoding = 'big5'
+encoding = 'Big5'
 
 def csv_to_json(csvFilePath, jsonFilePath):
     jsonArray = {"data":[]}
