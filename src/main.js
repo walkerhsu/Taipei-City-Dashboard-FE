@@ -35,11 +35,8 @@ import TimelineStackedChart from "./components/charts/TimelineStackedChart.vue";
 import MapLegend from "./components/charts/MapLegend.vue";
 import MetroChart from "./components/charts/MetroChart.vue";
 import HeatmapChart from "./components/charts/HeatmapChart.vue";
-<<<<<<< HEAD
 import BarChartRace from "./components/charts/BarChartRace.vue";
-=======
 import HexagonalBinning from "./components/charts/HexagonalBinning.vue";
->>>>>>> 509c0fd (HexagonalBinning created)
 
 const app = createApp(App);
 
