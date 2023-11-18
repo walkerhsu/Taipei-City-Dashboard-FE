@@ -34,6 +34,7 @@ import TimelineSeparateChart from "./components/charts/TimelineSeparateChart.vue
 import TimelineStackedChart from "./components/charts/TimelineStackedChart.vue";
 import MapLegend from "./components/charts/MapLegend.vue";
 import MetroChart from "./components/charts/MetroChart.vue";
+import BusChart from "./components/charts/BusChart.vue";
 import HeatmapChart from "./components/charts/HeatmapChart.vue";
 import BarChartRace from "./components/charts/BarChartRace.vue";
 import HexagonalBinning from "./components/charts/HexagonalBinning.vue";
@@ -58,6 +59,7 @@ app.component("TimelineSeparateChart", TimelineSeparateChart);
 app.component("TimelineStackedChart", TimelineStackedChart);
 app.component("MapLegend", MapLegend);
 app.component("MetroChart", MetroChart);
+app.component("BusChart", BusChart);
 app.component("HeatmapChart", HeatmapChart);
 app.component("BarChartRace", BarChartRace);
 app.component("HexagonalBinning", HexagonalBinning);

@@ -2,7 +2,7 @@ import csv
 import json 
 import sys
 
-encoding = 'utf-8'
+encoding = 'big5'
 
 def csv_to_json(csvFilePath, jsonFilePath):
     jsonArray = {"data":[]}
@@ -28,7 +28,7 @@ def csv_to_json(csvFilePath, jsonFilePath):
                     val = val.replace('�', '')
                     val = val.replace('~', '')
                     val = val.replace("-", "0")
-                    jsonDict[j][str(key)].append(int(val))
+                    jsonDict[j][str(key)].append((val))
             i += 1
         
         for key in jsonDict:
@@ -37,7 +37,7 @@ def csv_to_json(csvFilePath, jsonFilePath):
         print(jsonArray)
         
     #convert python jsonArray to JSON String and write to file
-    with open(jsonFilePath, 'w', encoding=encoding) as jsonf: 
+    with open(jsonFilePath, 'w') as jsonf: 
         jsonString = json.dumps(jsonArray, indent=4, ensure_ascii=False)
         jsonf.write(jsonString)
     

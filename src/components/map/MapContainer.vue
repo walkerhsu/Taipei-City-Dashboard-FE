@@ -1,7 +1,7 @@
 <!-- Developed by Taipei Urban Intelligence Center 2023 -->
 
 <script setup>
-import { onMounted, ref } from 'vue';
+import { onMounted} from 'vue';
 import { useMapStore } from '../../store/mapStore';
 import { useDialogStore } from '../../store/dialogStore';
 import { useContentStore } from '../../store/contentStore';
@@ -11,13 +11,6 @@ import MobileLayers from '../dialogs/MobileLayers.vue';
 const mapStore = useMapStore();
 const dialogStore = useDialogStore();
 const contentStore = useContentStore();
-
-const newSavedLocation = ref('');
-
-function handleSubmitNewLocation() {
-	mapStore.addNewSavedLocation(newSavedLocation.value);
-	newSavedLocation.value = '';
-}
 
 onMounted(() => {
 	mapStore.initializeMapBox();
@@ -31,7 +24,7 @@ onMounted(() => {
 				<div></div>
 			</div>
 			<button class="mapcontainer-layers show-if-mobile"
-				@click="dialogStore.showDialog('mobileLayers')"><span>layers</span></button>
+			@click="dialogStore.showDialog('mobileLayers')"><span>layers</span></button>
 			<!-- The key prop informs vue that the component should be updated when switching dashboards -->
 			<MobileLayers :key="contentStore.currentDashboard.index" />
 		</div>
@@ -55,6 +48,22 @@ onMounted(() => {
 	width: 100%;
 	height: calc(100%);
 	flex: 1;
+
+	select{
+		width: 200px;
+		background: none;
+		height: 30px;
+		margin: 0;
+		border: 3px solid #FFF;
+		border-radius: 10px;
+	}
+
+	select::after{
+		display: block;
+		font-size: 16px;
+		top: 7px;
+		color:#FFF;
+	}
 
 	&-loading {
 		position: absolute;

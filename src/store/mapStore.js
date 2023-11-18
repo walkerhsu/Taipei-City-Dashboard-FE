@@ -76,6 +76,7 @@ export const useMapStore = defineStore("map", {
 						(el) => el !== "rendering"
 					);
 				});
+				
 		},
 		// 2. Adds three basic layers to the map (Taipei District, Taipei Village labels, and Taipei 3D Buildings)
 		// Due to performance concerns, Taipei 3D Buildings won't be added in the mobile version
@@ -131,6 +132,7 @@ export const useMapStore = defineStore("map", {
 					}
 				);
 			});
+
 		},
 
 		/* Adding Map Layers */
@@ -421,12 +423,12 @@ export const useMapStore = defineStore("map", {
 					type: "custom",
 					renderingMode: "3d",
 					onAdd: function () {
-						for (let i = 0; i < 1; i++) {
-							const model = data.features[0];
+						for (let i = 0; i < data.features.length; i++) {
+							const model = data.features[i];
 							const modelOptions = {
-								obj: `${BASE_URL}/models/${model.model_id}.glb`,
+								obj: `${BASE_URL}/models/${model['properties']['model_id']}.glb`,
 								type: "gltf",
-								scale: 10,
+								scale: 50,
 								units: "meters",
 								rotation: { x: 90, y: 0, z: 0 },
 								anchor: "center",

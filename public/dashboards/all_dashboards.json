@@ -63,7 +63,6 @@
 				"105",
 				"109",
 				"91",
-				"11",
 				"14",
 				"115",
 				"9",
@@ -74,16 +73,16 @@
 			"icon": "public"
 		},
 		{
-			"name": "Demo",
-			"index": "demo",
-			"components": ["201", "202"],
-			"icon": "star_half"
-		},
-		{
 			"name": "test",
 			"index": "library",
 			"components": ["1", "2", "203", "11", "42", "9", "73", "43", "107"],
 			"icon": "favorite"
+		},
+		{
+			"name": "Demo",
+			"index": "demo",
+			"components": ["301","302","303","306", "307"],
+			"icon": "star_half"
 		}
 	]
 }

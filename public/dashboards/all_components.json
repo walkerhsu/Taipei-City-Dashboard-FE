@@ -29,7 +29,7 @@
 					],
 					"title": "2021 人數統計",
 					"type": "circle",
-					"size": "heapmap"
+					"dynamic": true
 				},
 				{
 					"index": "CCTV_scatter",
@@ -88,6 +88,7 @@
 					"type": "fill"
 				}
 			],
+			"dynamic": true,
 			"history_data": false,
 			"chart_config": {
 				"color": [
@@ -4389,22 +4390,22 @@
 			"chart_config": {
 				"types": ["DistrictChart", "ColumnChart"],
 				"color": ["#B4654A"],
-				"unit": "間",
+				"unit": "",
 				"map_filter": [
 					"town",
 					[
-						"北投區",
-						"士林區",
-						"內湖區",
-						"南港區",
-						"松山區",
-						"信義區",
-						"中山區",
-						"大同區",
-						"中正區",
-						"萬華區",
-						"大安區",
-						"文山區"
+						"信義站",
+						"中正站",
+						"大直站",
+						"南港站",
+						"內湖站",
+						"木柵站",
+						"承德站",
+						"中北站",
+						"向陽站",
+						"大安站",
+						"天母站",
+						"延平站"
 					]
 				]
 			},
@@ -4433,12 +4434,412 @@
 			"source": "社會局",
 			"time_from": "2023-06-11T00:00:00+08:00",
 			"update_freq": 1,
-			"update_freq_unit": "month",
+			"update_freq_unit": "month"
+		},
+		"301": {
+			"id": 301,
+			"index": "taipei_environment",
+			"history_data": false,
+			"map_config": [
+				{
+					"index": "taipei_environment",
+					"paint": {
+						"circle-color": [
+							"case",
+							["<", ["to-number", ["get", "AQI"]], 50],
+							"green",
+							["<", ["to-number", ["get", "AQI"]], 100],
+							"yellow",
+							["<", ["to-number", ["get", "AQI"]], 150],
+							"orange",
+							["<", ["to-number", ["get", "AQI"]], 200],
+							"red",
+							["<", ["to-number", ["get", "AQI"]], 300],
+							"purple",
+							"maroon"
+						],
+						"circle-stroke-width": 1
+					},
+					"property": [
+						{
+							"key": "測站",
+							"name": "測站"
+						},
+						{
+							"key": "地址",
+							"name": "地址"
+						},
+						{
+							"key": "AQI",
+							"name": "AQI"
+						}
+					],
+					"title": "環境空氣品質",
+					"type": "circle",
+					"size": "big"
+				}
+			],
+			"chart_config": {
+				"types": ["ColumnChart"],
+				"color": ["#B4654A"],
+				"unit": "",
+				"map_filter": [
+					"測站",
+					[
+						"信義站",
+						"中正站",
+						"大直站",
+						"南港站",
+						"內湖站",
+						"木柵站",
+						"承德站",
+						"中北站",
+						"向陽站",
+						"大安站",
+						"天母站",
+						"延平站"
+					]
+				]
+			},
+			"name": "台北市環境空氣品質",
+			"source": "環境品質資訊網",
+			"time_from": "2023-11-10T00:00:00+08:00",
+			"time_to": "2023-11-16T00:00:00+08:00",
+			"update_freq": 1,
+			"update_freq_unit": "day",
 			"short_desc": "",
 			"long_desc": "",
 			"use_case": "",
 			"tags": [],
 			"links": [
+				"https://data.taipei/dataset/detail?id=6079d6e8-7657-4007-b1c2-429733dbd762"
+			],
+			"contributors": ["tuic"]
+		},
+		"302": {
+			"id": 302,
+			"index": "taipei_environment_daily",
+			"map_config": null,
+			"chart_config": {
+				"index": "taipei_environment_daily",
+				"types": ["BarChartRace"],
+				"color": [
+					"#a8190f",
+					"#b5331f",
+					"#b5491f",
+					"#b55b1f",
+					"#b56f1f",
+					"#b5831f",
+					"#b5921f",
+					"#b5b01f",
+					"#a1b51f",
+					"#85b51f",
+					"#6ab51f",
+					"#1fb53a"
+				],
+				"unit": "",
+				"fixed": true
+			},
+			"name": "台北市每日環境空氣品質比較",
+			"source": "環境品質資訊網",
+			"time_from": "2023-11-10T00:00:00+08:00",
+			"time_to": "2023-11-16T00:00:00+08:00",
+			"update_freq": 1,
+			"update_freq_unit": "day",
+			"short_desc": "",
+			"long_desc": "",
+			"use_case": "",
+			"tags": [],
+			"links": [
+				"https://data.taipei/dataset/detail?id=6079d6e8-7657-4007-b1c2-429733dbd762"
+			],
+			"contributors": ["tuic"]
+		},
+		"303": {
+			"id": 303,
+			"index": "playground",
+			"history_data": false,
+			"map_config": [
+				{
+					"index": "playground",
+					"paint": {
+						"circle-color": [
+							"case",
+							["<", ["to-number", ["get", "AQI"]], 50],
+							"green",
+							["<", ["to-number", ["get", "AQI"]], 100],
+							"yellow",
+							["<", ["to-number", ["get", "AQI"]], 150],
+							"orange",
+							["<", ["to-number", ["get", "AQI"]], 200],
+							"red",
+							["<", ["to-number", ["get", "AQI"]], 300],
+							"purple",
+							"maroon"
+						],
+						"circle-stroke-width": 1
+					},
+					"property": [
+						{
+							"key": "location",
+							"name": "location"
+						},
+						{
+							"key": "district",
+							"name": "district"
+						},
+						{
+							"key": "address",
+							"name": "address"
+						}
+					],
+					"title": "環境空氣品質",
+					"type": "3Dmodel"
+				}
+			],
+			"chart_config": {
+				"color": [
+					"#F3847E",
+					"#e06666",
+					"#fdb7ba",
+					"#fb8c8c",
+					"#C53E5E"
+				],
+				"types": ["BarChart", "DonutChart"],
+				"unit": "件"
+			},
+			"name": "台北市遊憩場所",
+			"source": "data.Taipei",
+			"time_from": null,
+			"time_to": null,
+			"update_freq": 1,
+			"update_freq_unit": "year",
+			"short_desc": "",
+			"long_desc": "",
+			"use_case": "",
+			"tags": [],
+			"links": [
+				"https://data.taipei/dataset/detail?id=6079d6e8-7657-4007-b1c2-429733dbd762"
+			],
+			"contributors": ["tuic"]
+		},
+		"306": {
+			"id": 306,
+			"index": "electrical_bus_route",
+			"map_config": null,
+			"chart_config": {
+				"index": "electrical_bus_route",
+				"types": ["BusChart"]
+			},
+			"name": "電動公車路線圖",
+			"source": "交通部",
+			"time_from": "2023-11-10T00:00:00+08:00",
+			"time_to": "2023-11-16T00:00:00+08:00",
+			"update_freq": 1,
+			"update_freq_unit": "day",
+			"short_desc": "",
+			"long_desc": "",
+			"use_case": "",
+			"tags": [],
+			"links": [
+				"https://data.taipei/dataset/detail?id=6079d6e8-7657-4007-b1c2-429733dbd762"
+			],
+			"contributors": ["tuic"]
+		},
+		"307": {
+			"id": 307,
+			"index": "electrical_bus_route",
+			"map_config": [
+				{
+					"index": "electrical_bus_route",
+					"paint": {
+						"line-dasharray": [2, 2],
+						"line-opacity": 0.8,
+						"line-width": 2.5,
+						"line-color": [
+							"case",
+							["==", ["get", "name"], "中山幹線"],
+							"#ff5747",
+							["==", ["get", "name"], "羅斯福路幹線"],
+							"#ff7247",
+							["==", ["get", "name"], "266區間車"],
+							"#ff9147",
+							["==", ["get", "name"], "紅32"],
+							"#ffb347",
+							["==", ["get", "name"], "和平幹線"],
+							"#ffd447",
+							["==", ["get", "name"], "信義幹線(大都會)"],
+							"#fffc47",
+							["==", ["get", "name"], "208區間車"],
+							"#c2ff47",
+							["==", ["get", "name"], "236區"],
+							"#a6ff47",
+							["==", ["get", "name"], "251區"],
+							"#6cff47",
+							["==", ["get", "name"], "262區間車(大有)"],
+							"#47ff60",
+							["==", ["get", "name"], "284"],
+							"#47ff85",
+							["==", ["get", "name"], "292"],
+							"#47ffaf",
+							["==", ["get", "name"], "307(台北)"],
+							"#47ffd7",
+							["==", ["get", "name"], "557"],
+							"#47f6ff",
+							["==", ["get", "name"], "620(光華)"],
+							"#47c2ff",
+							["==", ["get", "name"], "902"],
+							"#478bff",
+							["==", ["get", "name"], "紅12"],
+							"#4766ff",
+							["==", ["get", "name"], "藍36"],
+							"#5a47ff",
+							["==", ["get", "name"], "棕2"],
+							"#8847ff",
+							"#dd47ff"
+						]
+					},
+					"property": [
+						{ "key": "name", "name": "路線編號" }
+					],
+					"title": "電動公車路線圖",
+					"type": "line"
+				}
+			],
+			"chart_config": {
+				"types": ["MapLegend"],
+				"map_filter": [
+					"name", [
+						"中山幹線",
+						"羅斯福路幹線",
+						"266區間車",
+						"紅32",
+						"和平幹線",
+						"信義幹線(大都會)",
+						"208區間車",
+						"236區",
+						"251區",
+						"262區間車(大有)",
+						"284",
+						"292",
+						"307(台北)",
+						"557",
+						"620(光華)",
+						"902",
+						"紅12",
+						"藍36",
+						"棕2"
+					]]
+			},
+			"chart_data": [
+				{
+					"color": "#ff5747",
+					"type": "fill",
+					"name": "中山幹線"
+				},
+				{
+					"color": "#ff7247",
+					"type": "fill",
+					"name": "羅斯福路幹線"
+				},
+				{
+					"color": "#ff9147",
+					"type": "fill",
+					"name": "266區間車"
+				},
+				{
+					"color": "#ffb347",
+					"type": "fill",
+					"name": "紅32"
+				},
+				{
+					"color": "#ffd447",
+					"type": "fill",
+					"name": "和平幹線"
+				},
+				{
+					"color": "#fffc47",
+					"type": "fill",
+					"name": "信義幹線(大都會)"
+				},
+				{
+					"color": "#c2ff47",
+					"type": "fill",
+					"name": "208區間車"
+				},
+				{
+					"color": "#a6ff47",
+					"type": "fill",
+					"name": "236區"
+				},
+				{
+					"color": "#6cff47",
+					"type": "fill",
+					"name": "251區"
+				},
+				{
+					"color": "#47ff60",
+					"type": "fill",
+					"name": "262區間車(大有)"
+				},
+				{
+					"color": "#47ff85",
+					"type": "fill",
+					"name": "284"
+				},
+				{
+					"color": "#47ffaf",
+					"type": "fill",
+					"name": "292"
+				},
+				{
+					"color": "#47ffd7",
+					"type": "fill",
+					"name": "307(台北)"
+				},
+				{
+					"color": "#47f6ff",
+					"type": "fill",
+					"name": "557"
+				},
+				{
+					"color": "#47c2ff",
+					"type": "fill",
+					"name": "620(光華)"
+				},
+				{
+					"color": "#478bff",
+					"type": "fill",
+					"name": "902"
+				},
+				{
+					"color": "#4766ff",
+					"type": "fill",
+					"name": "紅12"
+				},
+				{
+					"color": "#5a47ff",
+					"type": "fill",
+					"name": "藍36"
+				},
+				{
+					"color": "#8847ff",
+					"type": "fill",
+					"name": "棕2"
+				}
+			],
+			"name": "電動公車路線圖",
+			"source": "交通部",
+			"time_from": "2023-11-10T00:00:00+08:00",
+			"time_to": "2023-11-16T00:00:00+08:00",
+			"update_freq": 1,
+			"update_freq_unit": "day",
+			"short_desc": "",
+			"long_desc": "",
+			"use_case": "",
+			"tags": [],
+			"links": [
+				"https://data.taipei/dataset/detail?id=6079d6e8-7657-4007-b1c2-429733dbd762"
 			],
 			"contributors": ["tuic"]
 		}

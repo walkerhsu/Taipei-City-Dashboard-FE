@@ -195,6 +195,23 @@ export const maplayerCommonPaint = {
 			7,
 		],
 	},
+	"circle-enormous": {
+		"circle-radius": [
+			"interpolate",
+			["linear"],
+			["zoom"],
+			11.99,
+			7,
+			12,
+			7,
+			13.5,
+			8,
+			15,
+			10,
+			22,
+			14,
+		],
+	},
 	"circle-concentric-small": {
 		"circle-radius": [
 			"interpolate",
