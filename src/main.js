@@ -15,6 +15,7 @@ import "./assets/styles/chartStyles.css";
 import "./assets/styles/toggleswitch.css";
 import App from "./App.vue";
 
+
 // Import Core Packages: Vue-Router, Pinia, Apexcharts
 import router from "./router";
 import { createPinia } from "pinia";
@@ -35,6 +36,7 @@ import MapLegend from "./components/charts/MapLegend.vue";
 import MetroChart from "./components/charts/MetroChart.vue";
 import HeatmapChart from "./components/charts/HeatmapChart.vue";
 import BarChartRace from "./components/charts/BarChartRace.vue";
+import HexagonalBinning from "./components/charts/HexagonalBinning.vue";
 
 const app = createApp(App);
 
@@ -58,5 +60,6 @@ app.component("MapLegend", MapLegend);
 app.component("MetroChart", MetroChart);
 app.component("HeatmapChart", HeatmapChart);
 app.component("BarChartRace", BarChartRace);
+app.component("HexagonalBinning", HexagonalBinning);
 
 app.mount("#app");

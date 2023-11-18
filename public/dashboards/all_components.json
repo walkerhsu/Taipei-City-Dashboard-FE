@@ -4422,6 +4422,25 @@
 				"https://data.taipei/dataset/detail?id=3c0cd5aa-ad4b-4695-b197-f9eb3405e556"
 			],
 			"contributors": ["tuic"]
+		},
+		"203": {
+			"id": 203,
+			"index": "crime",
+			"chart_config": {
+				"types": ["HexagonalBinning" ]
+			},
+			"name": "暴力犯罪",
+			"source": "社會局",
+			"time_from": "2023-06-11T00:00:00+08:00",
+			"update_freq": 1,
+			"update_freq_unit": "month",
+			"short_desc": "",
+			"long_desc": "",
+			"use_case": "",
+			"tags": [],
+			"links": [
+			],
+			"contributors": ["tuic"]
 		}
 	}
 }
