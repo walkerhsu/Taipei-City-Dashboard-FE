@@ -1,8 +1,4 @@
 export const busNames = [
-<<<<<<< HEAD
-=======
-	"請選擇公車路線",
->>>>>>> 8cdd11a (:lipstick: add 2 environment data)
 	"中山幹線",
 	"羅斯福路幹線",
 	"承德幹線",
@@ -24,8 +20,4 @@ export const busNames = [
 	"902路",
 	"251",
 	"和平幹線",
-<<<<<<< HEAD
 ];
-=======
-];
->>>>>>> 8cdd11a (:lipstick: add 2 environment data)

@@ -81,11 +81,7 @@
 		{
 			"name": "Demo",
 			"index": "demo",
-<<<<<<< HEAD
 			"components": ["301","302","303","306", "307"],
-=======
-			"components": ["301","302"],
->>>>>>> 8cdd11a (:lipstick: add 2 environment data)
 			"icon": "star_half"
 		}
 	]
