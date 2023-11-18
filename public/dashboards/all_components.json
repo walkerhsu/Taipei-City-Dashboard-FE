@@ -352,6 +352,7 @@
 				},
 				{
 					"index": "CCTV_scatter",
+					"layout": {},
 					"property": [
 						{
 							"key": "攝影機編號",
@@ -409,8 +410,130 @@
 			"source": "警察局",
 			"contributors": ["tuic"]
 		},
+		"10": {
+			"id": 10,
+			"index": "taipei_environment_new",
+			"map_config": [
+				{
+					"index": "Taipei_Environment_new",
+					"paint": {},
+					"layout": {},
+					"property": [
+						{
+							"key": "station",
+							"name": "觀測站"
+						},
+						{
+							"key": "address",
+							"name": "地點"
+						}
+					],
+					"title": "臺北市環境品質",
+					"type": "circle",
+					"icon": "different"
+				},
+				{
+					"index": "Taipei_Environment_new",
+					"layout": {
+						"text-field": ["to-string", ["get", "AQI"]],
+						"text-font": [
+							"Open Sans Bold",
+							"Arial Unicode MS Bold"
+						],
+						"text-size": 18
+					},
+					"paint": {
+						"text-color": "rgba(0,0,0,1)"
+					},
+					"title": "臺北市環境品質",
+					"type": "symbol",
+					"icon": "different"
+				}
+			],
+			"name": "Taipei Environment New",
+			"chart_config": {
+				"types": ["MapLegend"]
+			},
+			"chart_data": [
+				{
+					"type": "symbol",
+					"icon": "elecMotor",
+					"name": "AQI"
+				}
+			],
+			"source": "臺北市環境品質資訊網",
+			"contributors": ["tuic"]
+		},
 		"11": {
 			"id": 11,
+			"index": "no-smoke",
+			"map_config": [
+				{
+					"index": "daan_district",
+					"paint": {
+						"fill-color": "#627BC1",
+						"fill-opacity": [
+							"case",
+							["boolean", ["feature-state", "hover"], false],
+							0.7,
+							0.5
+						]
+					},
+					"property": [
+						{
+							"key": "Town_ID",
+							"name": "town"
+						},
+						{
+							"key": "County_ID",
+							"name": "country"
+						}
+					],
+					"title": "Daan District",
+					"type": "fill"
+				},
+				{
+					"index": "no-smoke",
+					"paint": {
+						"icon-opacity": 0.5
+					},
+					"layout": {},
+					"property": [
+						{
+							"key": "x",
+							"name": "lng"
+						},
+						{
+							"key": "y",
+							"name": "lat"
+						}
+					],
+					"title": "臺北市公告禁菸場所",
+					"type": "symbol",
+					"icon": "no-smoke"
+				}
+			],
+			"name": "No smoking",
+			"chart_config": {
+				"types": ["MapLegend"]
+			},
+			"chart_data": [
+				{
+					"type": "symbol",
+					"icon": "cctv",
+					"name": "CCTV"
+				},
+				{
+					"type": "symbol",
+					"icon": "metro",
+					"name": "No smoking"
+				}
+			],
+			"source": "衛生局",
+			"contributors": ["tuic"]
+		},
+		"12": {
+			"id": 12,
 			"index": "designate",
 			"map_config": [
 				{
@@ -470,6 +593,355 @@
 			"time_to": null,
 			"update_freq": null,
 			"update_freq_unit": null,
+			"contributors": ["tuic"]
+		},
+		"13": {
+			"id": 13,
+			"index": "elec_Motor",
+			"map_config": [
+				{
+					"index": "daan_district",
+					"paint": {
+						"fill-color": "#64d16d",
+						"fill-opacity": [
+							"case",
+							["boolean", ["feature-state", "hover"], false],
+							0.7,
+							0.5
+						]
+					},
+					"property": [
+						{
+							"key": "Town_ID",
+							"name": "town"
+						},
+						{
+							"key": "County_ID",
+							"name": "country"
+						}
+					],
+					"title": "Daan District",
+					"type": "fill"
+				},
+				{
+					"index": "zhongzheng_district",
+					"paint": {
+						"fill-color": "#93d164",
+						"fill-opacity": [
+							"case",
+							["boolean", ["feature-state", "hover"], false],
+							0.7,
+							0.5
+						]
+					},
+					"property": [
+						{
+							"key": "Town_ID",
+							"name": "town"
+						},
+						{
+							"key": "County_ID",
+							"name": "country"
+						}
+					],
+					"title": "Zhongzheng District",
+					"type": "fill"
+				},
+				{
+					"index": "datong_district",
+					"paint": {
+						"fill-color": "#ff7226",
+						"fill-opacity": [
+							"case",
+							["boolean", ["feature-state", "hover"], false],
+							0.7,
+							0.5
+						]
+					},
+					"property": [
+						{
+							"key": "Town_ID",
+							"name": "town"
+						},
+						{
+							"key": "County_ID",
+							"name": "country"
+						}
+					],
+					"title": "Datong District",
+					"type": "fill"
+				},
+				{
+					"index": "zhongshan_district",
+					"paint": {
+						"fill-color": "#d1c664",
+						"fill-opacity": [
+							"case",
+							["boolean", ["feature-state", "hover"], false],
+							0.7,
+							0.5
+						]
+					},
+					"property": [
+						{
+							"key": "Town_ID",
+							"name": "town"
+						},
+						{
+							"key": "County_ID",
+							"name": "country"
+						}
+					],
+					"title": "Zhongzheng District",
+					"type": "fill"
+				},
+				{
+					"index": "songshan_district",
+					"paint": {
+						"fill-color": "#f7ed31",
+						"fill-opacity": [
+							"case",
+							["boolean", ["feature-state", "hover"], false],
+							0.7,
+							0.5
+						]
+					},
+					"property": [
+						{
+							"key": "Town_ID",
+							"name": "town"
+						},
+						{
+							"key": "County_ID",
+							"name": "country"
+						}
+					],
+					"title": "Songshan District",
+					"type": "fill"
+				},
+				{
+					"index": "wanhua_district",
+					"paint": {
+						"fill-color": "#167a23",
+						"fill-opacity": [
+							"case",
+							["boolean", ["feature-state", "hover"], false],
+							0.7,
+							0.5
+						]
+					},
+					"property": [
+						{
+							"key": "Town_ID",
+							"name": "town"
+						},
+						{
+							"key": "County_ID",
+							"name": "country"
+						}
+					],
+					"title": "Wanhua District",
+					"type": "fill"
+				},
+				{
+					"index": "xinyi_district",
+					"paint": {
+						"fill-color": "#64c6d1",
+						"fill-opacity": [
+							"case",
+							["boolean", ["feature-state", "hover"], false],
+							0.7,
+							0.5
+						]
+					},
+					"property": [
+						{
+							"key": "Town_ID",
+							"name": "town"
+						},
+						{
+							"key": "County_ID",
+							"name": "country"
+						}
+					],
+					"title": "Xinyi District",
+					"type": "fill"
+				},
+				{
+					"index": "shilin_district",
+					"paint": {
+						"fill-color": "#ffbb9c",
+						"fill-opacity": [
+							"case",
+							["boolean", ["feature-state", "hover"], false],
+							0.7,
+							0.5
+						]
+					},
+					"property": [
+						{
+							"key": "Town_ID",
+							"name": "town"
+						},
+						{
+							"key": "County_ID",
+							"name": "country"
+						}
+					],
+					"title": "Shilin District",
+					"type": "fill"
+				},
+				{
+					"index": "beitou_district",
+					"paint": {
+						"fill-color": "#f59e73",
+						"fill-opacity": [
+							"case",
+							["boolean", ["feature-state", "hover"], false],
+							0.7,
+							0.5
+						]
+					},
+					"property": [
+						{
+							"key": "Town_ID",
+							"name": "town"
+						},
+						{
+							"key": "County_ID",
+							"name": "country"
+						}
+					],
+					"title": "Beitou District",
+					"type": "fill"
+				},
+				{
+					"index": "neihu_district",
+					"paint": {
+						"fill-color": "#87f571",
+						"fill-opacity": [
+							"case",
+							["boolean", ["feature-state", "hover"], false],
+							0.7,
+							0.5
+						]
+					},
+					"property": [
+						{
+							"key": "Town_ID",
+							"name": "town"
+						},
+						{
+							"key": "County_ID",
+							"name": "country"
+						}
+					],
+					"title": "Neihu District",
+					"type": "fill"
+				},
+				{
+					"index": "nangang_district",
+					"paint": {
+						"fill-color": "#253db3",
+						"fill-opacity": [
+							"case",
+							["boolean", ["feature-state", "hover"], false],
+							0.7,
+							0.5
+						]
+					},
+					"property": [
+						{
+							"key": "Town_ID",
+							"name": "town"
+						},
+						{
+							"key": "County_ID",
+							"name": "country"
+						}
+					],
+					"title": "Nangang District",
+					"type": "fill"
+				},
+				{
+					"index": "wenshan_district",
+					"paint": {
+						"fill-color": "#28167a",
+						"fill-opacity": [
+							"case",
+							["boolean", ["feature-state", "hover"], false],
+							0.7,
+							0.5
+						]
+					},
+					"property": [
+						{
+							"key": "Town_ID",
+							"name": "town"
+						},
+						{
+							"key": "County_ID",
+							"name": "country"
+						}
+					],
+					"title": "Wenshan District",
+					"type": "fill"
+				},
+
+				{
+					"index": "elecMotor",
+					"paint": {
+						"icon-opacity": 0.9
+					},
+					"layout": {
+						"icon-image": "electric-motor",
+						"icon-size": [
+							"interpolate",
+							["linear"],
+							["zoom"],
+							11.99,
+							0.15,
+							14,
+							0.2,
+							22,
+							0.45
+						]
+					},
+					"property": [
+						{
+							"key": "單位",
+							"name": "單位"
+						},
+						{
+							"key": "行政區",
+							"name": "行政區"
+						},
+						{
+							"key": "地址",
+							"name": "地址"
+						},
+						{
+							"key": "備註",
+							"name": "備註"
+						}
+					],
+					"title": "臺北市電動機車充電站地址及分類",
+					"type": "symbol",
+					"icon": "metro"
+				}
+			],
+			"name": "Electric Motorcycles",
+			"chart_config": {
+				"types": ["MapLegend"]
+			},
+			"chart_data": [
+				{
+					"type": "symbol",
+					"icon": "metro",
+					"name": "Electric Motorcycles"
+				}
+			],
+			"source": "環保局",
 			"contributors": ["tuic"]
 		},
 		"14": {

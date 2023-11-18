@@ -72,6 +72,30 @@ export const TaipeiVillage = {
 	},
 };
 
+export const DaanDistrict = {
+	id: "daan_district",
+	source: "daan_district",
+	"source-layer": import.meta.env.VITE_MAPBOXSOURCELAYER_DAAN,
+	type: "fill",
+	// layout: {
+	// 	"line-join": "round",
+	// 	"line-cap": "round",
+	// },
+	paint: {
+		// "line-color": "#ff69b4",
+		// "line-width": 1,
+		"fill-color": "#627BC1",
+		"fill-opacity": [
+			"case",
+			["boolean", ["feature-state", "hover"], false],
+			1,
+			0.5,
+		],
+		// "fill-opacity": 0.15,
+		// "fill-color": "#ff0000",
+	},
+};
+
 export const TaipeiBuilding = {
 	id: "taipei_building_3d",
 	source: "taipei_building_3d_source",
@@ -264,6 +288,36 @@ export const maplayerCommonPaint = {
 			120,
 		],
 	},
+	"circle-different": {
+		"circle-color": [
+			// "interpolate",
+			// ["linear"],
+			"case",
+			["<=", ["to-number", ["get", "AQI"]], 50],
+			"#3CB043",
+			["<=", ["to-number", ["get", "AQI"]], 100],
+			"#FFF700",
+			["<=", ["to-number", ["get", "AQI"]], 150],
+			'#FFBF00',
+			["<=", ["to-number", ["get", "AQI"]], 200],
+			'#ED2939',
+			["<=", ["to-number", ["get", "AQI"]], 300],
+			'#6F2DA8',
+			'#990147'
+		],
+		"circle-opacity": 0.5,
+		"circle-radius": 
+			// "interpolate",
+			// ["linear"],
+			// "case"
+			// [">=", ["to-number", ["get", "AQI"]], 40],
+			["to-number", ["get", "AQI"]],
+			// 6,
+			// 20,
+			// 8,
+			// 40,
+		
+	},
 	// 3d paint
 	"fill-extrusion": {
 		"fill-extrusion-opacity": 0.5,
@@ -292,12 +346,12 @@ export const maplayerCommonPaint = {
 			3,
 		],
 	},
-	
+
 	"line-gradient": {
 		// "line-gradient": "rgb(255, 255, 0)",
 		"line-gradient": "#85bdbd",
 	},
-	"line-gap-width":{
+	"line-gap-width": {
 		"line-gap-width": 5,
 	},
 	"line-wide": {
@@ -315,7 +369,7 @@ export const maplayerCommonPaint = {
 	},
 	"line-dash": {
 		"line-dasharray": [2, 4],
-		"line-opacity": 0.9
+		"line-opacity": 0.9,
 	},
 	symbol: {},
 };
@@ -362,15 +416,28 @@ export const maplayerCommonLayout = {
 	"symbol-cctv": {
 		"icon-image": "cctv",
 		"icon-size": [
+			// "interpolate",
+			// ["linear"],
+			// ["zoom"],
+			// 11.99,
+			"case",
+			[">", ["to-number", ["get", "x"]], 121.555],
+			["/", 3, ["to-number", ["get", "x"]]],
+			["/", 4.5, ["to-number", ["get", "x"]]],
+		],
+	},
+	"symbol-no-smoke": {
+		"icon-image": "no-smoke",
+		"icon-size": [
 			"interpolate",
 			["linear"],
 			["zoom"],
 			11.99,
-			0.3,
+			["/", 3, ["to-number", ["get", "x"]]],
 			14,
-			0.4,
+			["/", 4, ["to-number", ["get", "x"]]],
 			22,
-			0.9,
+			["/", 5, ["to-number", ["get", "x"]]],
 		],
 	},
 	"symbol-triangle_green": {

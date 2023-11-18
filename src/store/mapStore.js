@@ -11,6 +11,8 @@ import { createApp, defineComponent, nextTick, ref } from "vue";
 import { defineStore } from "pinia";
 import { useAuthStore } from "./authStore";
 import { useDialogStore } from "./dialogStore";
+import { dates } from "../assets/configs/apexcharts/aqiDates";
+import { districts } from "../assets/configs/apexcharts/taipeiDistricts";
 import mapboxGl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import axios from "axios";
@@ -29,6 +31,7 @@ import { savedLocations } from "../assets/configs/mapbox/savedLocations.js";
 import { calculateGradientSteps } from "../assets/configs/mapbox/arcGradient";
 import MapPopup from "../components/map/MapPopup.vue";
 const { BASE_URL } = import.meta.env;
+let hoveredPolygonId = null;
 
 export const useMapStore = defineStore("map", {
 	state: () => ({
@@ -122,6 +125,9 @@ export const useMapStore = defineStore("map", {
 				"bike_green",
 				"bike_orange",
 				"bike_red",
+				"cctv",
+				"no-smoke",
+				"electric-motor",
 			];
 			images.forEach((element) => {
 				this.map.loadImage(
@@ -171,11 +177,32 @@ export const useMapStore = defineStore("map", {
 				})
 				.catch((e) => console.error(e));
 		},
+		updateQueryFeatures(features) {
+			this.queryFeatures = features;
+			console.log(features);
+		},
+		queryBoundaries(lng, lat) {
+			axios
+				.get(
+					`https://api.mapbox.com/v4/${
+						import.meta.env.VITE_MAPBOXTILE_DAAN
+					}/tilequery/${lng},${lat}.json?access_token=${
+						import.meta.env.VITE_MAPBOXTOKEN
+					}`
+				)
+				.then((rs) => {
+					console.log(rs.data);
+					// this.useMapStore.commit("updateQueryFeatures", rs.data.features);
+					this.updateQueryFeatures(rs.data.features);
+				})
+				.catch((e) => console.error(e));
+		},
 		// 3. Add the layer data as a source in mapbox
 		addMapLayerSource(map_config, data) {
 			this.map.addSource(`${map_config.layerId}-source`, {
 				type: "geojson",
 				data: { ...data },
+				generateId: true,
 			});
 			if (map_config.type === "arc") {
 				this.AddArcMapLayer(map_config, data);
@@ -184,12 +211,20 @@ export const useMapStore = defineStore("map", {
 			} else if (map_config.type === "3Dmodel") {
 				this.Add3DModelLayer(map_config, data);
 			} else {
-				this.addMapLayer(map_config);
+				this.addMapLayer(map_config, data);
 			}
+		},
+
+		filterBy(date_idx) {
+			const filters = ["==", "日期", dates[date_idx]];
+			this.map.setFilter("Taipei_Environment_new-circle", filters);
+			this.map.setFilter("Taipei_Environment_new-symbol", filters);
 		},
 		// 4-1. Using the mapbox source and map config, create a new layer
 		// The styles and configs can be edited in /assets/configs/mapbox/mapConfig.js
-		addMapLayer(map_config) {
+		addMapLayer(map_config, data) {
+			// console.log(map_config.layerId);
+			// console.log(data["features"][100]["properties"]);
 			let extra_paint_configs = {};
 			let extra_layout_configs = {};
 			if (map_config.icon) {
@@ -219,6 +254,7 @@ export const useMapStore = defineStore("map", {
 				};
 			}
 			this.loadingLayers.push("rendering");
+			console.log(map_config.layerId);
 			this.map.addLayer({
 				id: map_config.layerId,
 				type: map_config.type,
@@ -230,15 +266,81 @@ export const useMapStore = defineStore("map", {
 				layout: {
 					...maplayerCommonLayout[`${map_config.type}`],
 					...extra_layout_configs,
+					...map_config.layout,
 				},
 				source: `${map_config.layerId}-source`,
 			});
+			if (map_config.layerId == "Taipei_Environment_new-circle") {
+				this.filterBy(0);
+			}
+			if (
+				map_config.layerId == "no-smoke-symbol" ||
+				map_config.layerId == "Taipei_Environment_new-c" ||
+				map_config.layerId == "elecMotor-symbol"
+			) {
+				console.log("in");
+				for (let i = 0; i < districts.length; i++) {
+					let this_district = "";
+					let value = "";
+					for (var key in districts[i]) {
+						// console.log(districts[i][key]);
+						this_district = key;
+						value = districts[i][key];
+					}
+					this.map.on("mousemove", value, (e) => {
+						console.log("on hover");
+						console.log(value);
+						if (map_config.layerId == "elecMotor-symbol") {
+							let filters = ["==", "行政區", this_district];
+							this.map.setFilter("elecMotor-symbol", filters);
+						}
+						if (e.features.length > 0) {
+							if (hoveredPolygonId !== null) {
+								this.map.setFeatureState(
+									{
+										source: `${value}-source`,
+										id: hoveredPolygonId,
+									},
+									{ hover: false }
+								);
+								console.log(`${value}-source`);
+							}
+							hoveredPolygonId = e.features[0].id;
+							this.map.setFeatureState(
+								{
+									source: `${value}-source`,
+									id: hoveredPolygonId,
+								},
+								{ hover: true }
+							);
+							console.log("on hover");
+						}
+					});
+					this.map.on("mouseleave", value, () => {
+						if (map_config.layerId == "elecMotor-symbol") {
+							this.map.setFilter("elecMotor-symbol", null);
+						}
+						if (hoveredPolygonId !== null) {
+							this.map.setFeatureState(
+								{
+									source: `${value}-source`,
+									id: hoveredPolygonId,
+								},
+								{ hover: false }
+							);
+						}
+						hoveredPolygonId = null;
+					});
+				}
+			}
+
 			this.currentLayers.push(map_config.layerId);
 			this.mapConfigs[map_config.layerId] = map_config;
 			this.currentVisibleLayers.push(map_config.layerId);
 			this.loadingLayers = this.loadingLayers.filter(
 				(el) => el !== map_config.layerId
 			);
+			console.log("done");
 		},
 		// 4-2. Add Map Layer for Arc Maps
 		AddArcMapLayer(map_config, data) {
@@ -348,23 +450,22 @@ export const useMapStore = defineStore("map", {
 			var lineGeometry = [];
 			var origin = [121.5436, 25.02605];
 
-			for (var l = 0; l<200; l++) {
-
+			for (var l = 0; l < 200; l++) {
 				var delta = [
-					Math.sin(l/5) * l/100000, 
-					Math.cos(l/5) * l/100000, 
-					l*5
-				]
+					(Math.sin(l / 5) * l) / 100000,
+					(Math.cos(l / 5) * l) / 100000,
+					l * 5,
+				];
 
-				var newCoordinate = origin.map(function(d,i){
-					return d + delta[i]
-				})
+				var newCoordinate = origin.map(function (d, i) {
+					return d + delta[i];
+				});
 				// newCoordinate.push(80000)
-				lineGeometry.push(newCoordinate)
+				lineGeometry.push(newCoordinate);
 			}
 
 			// console.log("Tube's line geometry: ", lineGeometry);
-		
+
 			const delay = authStore.isMobileDevice ? 2000 : 2000;
 			setTimeout(() => {
 				this.map.addLayer({
@@ -374,7 +475,7 @@ export const useMapStore = defineStore("map", {
 					onAdd: function () {
 						for (let i = 0; i < data.features.length; i++) {
 							let line = data.features[i].geometry.coordinates;
-							line.push(0)
+							line.push(0);
 							let lineOptions = {
 								geometry: line,
 								color: 0xffffff,
@@ -387,11 +488,11 @@ export const useMapStore = defineStore("map", {
 								geometry: lineGeometry,
 								sides: sides,
 								radius: radius,
-								material: 'MeshPhysicalMaterial',
-								color:'#ff0000',
+								material: "MeshPhysicalMaterial",
+								color: "#ff0000",
 								// opacity: 1,
 							};
-							
+
 							let tubeMesh = tb.tube(tubeOptions);
 							tb.add(tubeMesh);
 							// tubeMesh.position.z = height / 2;
@@ -434,22 +535,24 @@ export const useMapStore = defineStore("map", {
 								anchor: "center",
 							};
 							tb.loadObj(modelOptions, function (model) {
-								let garden = model.setCoords(data.features[i].geometry.coordinates);
+								let garden = model.setCoords(
+									data.features[i].geometry.coordinates
+								);
 								tb.add(garden);
-							})
+							});
 						}
 					},
 					render: function () {
 						tb.update(); //update Threebox scene
-					}
-				})
+					},
+				});
 				this.currentLayers.push(map_config.layerId);
 				this.mapConfigs[map_config.layerId] = map_config;
 				this.currentVisibleLayers.push(map_config.layerId);
 				this.loadingLayers = this.loadingLayers.filter(
 					(el) => el !== map_config.layerId
 				);
-			}, 2000)
+			}, 2000);
 		},
 		//  5. Turn on the visibility for a exisiting map layer
 		turnOnMapLayerVisibility(mapLayerId) {
