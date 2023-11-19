@@ -37,11 +37,6 @@ const chartOptions = ref({
 	fill: {
           type: 'image',
           opacity: 1,
-          image: {
-            src: ['../../assets/images/ico-messenger.png', '../../assets/images/ico-instagram.png'],
-            width: 40,
-            height: 40
-          }
         },
 	legend: {
           labels: {

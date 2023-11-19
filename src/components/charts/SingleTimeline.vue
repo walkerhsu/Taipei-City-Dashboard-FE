@@ -24,13 +24,7 @@ const chartOptions = ref({
 	legend: {
 		show: props.series.length > 1 ? true : false,
 	},
-	markers: {
-		hover: {
-			size: 5,
-		},
-		size: 3,
-		strokeWidth: 0,
-	},
+	markers: 0,
 	stroke: {
 		colors: props.chart_config.color,
 		curve: "smooth",
@@ -83,7 +77,7 @@ const chartOptions = ref({
 });
 
 function parseTime(time) {
-	return time.replace("T", " ").replace("+08:00", " ").replace(" 00:00","");
+	return time.replace(" 00:00","");
 }
 </script>
 
@@ -98,3 +92,5 @@ function parseTime(time) {
 		></apexchart>
 	</div>
 </template>
+
+
