@@ -452,15 +452,27 @@
 			],
 			"name": "Taipei Environment New",
 			"chart_config": {
-				"types": ["MapLegend"]
+				"color": [
+					"#a8190f",
+					"#b5331f",
+					"#b5491f",
+					"#b55b1f",
+					"#b56f1f",
+					"#b5831f",
+					"#b5921f",
+					"#b5b01f",
+					"#a1b51f",
+					"#85b51f",
+					"#6ab51f",
+					"#1fb53a"
+				],
+				"types": [
+					"TimelineColorChart"
+				],
+				"unit": "",
+				"map_filter": []
 			},
-			"chart_data": [
-				{
-					"type": "symbol",
-					"icon": "elecMotor",
-					"name": "AQI"
-				}
-			],
+			"chart_data": [],
 			"source": "臺北市環境品質資訊網",
 			"contributors": ["tuic"]
 		},
@@ -5341,44 +5353,54 @@
 					"paint": {
 						"circle-color": [
 							"case",
-							["<=", ["get", "濁度(NTU)"], 1],
-							"#00FF00",
-							["<=", ["get", "濁度(NTU)"], 3],
-							"#FFFF00",
-							["<=", ["get", "濁度(NTU)"], 5],
-							"#FFA500",
-							["<=", ["get", "濁度(NTU)"], 7],
-							"#FF0000",
-							["<=", ["get", "濁度(NTU)"], 10],
-							"#800080",
-							"#800080"
+							["<=", ["to-number", ["get", "濁度(NTU)"]], 0.02],
+							"#3CB043",
+							["<=", ["to-number", ["get", "濁度(NTU)"]], 0.04],
+							"#FFF700",
+							["<=", ["to-number", ["get", "濁度(NTU)"]], 0.06],
+							"#FFBF00",
+							["<=", ["to-number", ["get", "濁度(NTU)"]], 0.08],
+							"#ED2939",
+							["<=", ["to-number", ["get", "濁度(NTU)"]], 0.1],
+							"#6F2DA8",
+							"#990147"
 						],
-						"circle-opacity": 0.8
+						"circle-radius": ["*", 500, ["to-number", ["get", "濁度(NTU)"]]]
 					},
 					"property": [
-						{
-							"key": "濁度(NTU)",
-							"name": "濁度(NTU)"
-						},
-						{
-							"key": "餘氯(mg/L)",
-							"name": "餘氯(mg/L)"
-						},
-						{
-							"key": "酸鹼度(PH)",
-							"name": "酸鹼度(PH)"
-						},
-						{
-							"key": "district",
-							"name": "district"
-						},
-						{
-							"key": "code_name",
-							"name": "地址"
-						}
+						{ "key": "code_name", "name": "測站名稱" },
+						{ "key": "update_time", "name": "最新檢測時間" },
+						{ "key": "濁度(NTU)", "name": "濁度(NTU)" },
+						{ "key": "餘氯(mg/L)", "name": "餘氯(mg/L)" },
+						{ "key": "酸鹼度(PH)", "name": "酸鹼度(PH)" }
 					],
-					"title": "台北市水質資料",
-					"type": "circle"
+					"title": "臺北市河川水質檢測",
+					"type": "circle",
+					"icon": "different"
+				},
+				{
+					"index": "water_quality",
+					"layout": {
+						"text-field": ["to-string", ["get", "濁度(NTU)"]],
+						"text-font": [
+							"Open Sans Bold",
+							"Arial Unicode MS Bold"
+						],
+						"text-size": 14
+					},
+					"paint": {
+						"text-color": "rgba(0,0,0,1)"
+					},
+					"property": [
+						{ "key": "code_name", "name": "測站名稱" },
+						{ "key": "update_time", "name": "最新檢測時間" },
+						{ "key": "濁度(NTU)", "name": "濁度(NTU)" },
+						{ "key": "餘氯(mg/L)", "name": "餘氯(mg/L)" },
+						{ "key": "酸鹼度(PH)", "name": "酸鹼度(PH)" }
+					],
+					"title": "臺北市河川水質檢測",
+					"type": "symbol",
+					"icon": "different"
 				}
 			],
 			"chart_config": {
@@ -5402,18 +5424,18 @@
 				],
 				"types": ["RoseChart"]
 			},
-			"name": "台北水質",
-			"source": "台北自來水事業處",
-			"time_from": null,
-			"time_to": null,
+			"name": "臺北市河川水質檢測",
+			"source": "臺北市環境品質資訊網",
+			"time_from": "2023-11-18T00:00:00+08:00",
+			"time_to": "2023-11-18T23:59:59+08:00",
 			"update_freq": 1,
-			"update_freq_unit": "year",
+			"update_freq_unit": "day",
 			"short_desc": "",
 			"long_desc": "",
 			"use_case": "",
 			"tags": [],
 			"links": [
-				"https://data.taipei/dataset/detail?id=6079d6e8-7657-4007-b1c2-429733dbd762"
+				"https://www.tldep.gov.taipei/Public/DetInformation/RiverQuality.aspx"
 			],
 			"contributors": ["tuic"]
 		}

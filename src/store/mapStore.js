@@ -80,7 +80,6 @@ export const useMapStore = defineStore("map", {
 						(el) => el !== "rendering"
 					);
 				});
-				
 		},
 		// 2. Adds three basic layers to the map (Taipei District, Taipei Village labels, and Taipei 3D Buildings)
 		// Due to performance concerns, Taipei 3D Buildings won't be added in the mobile version
@@ -139,7 +138,6 @@ export const useMapStore = defineStore("map", {
 					}
 				);
 			});
-
 		},
 
 		/* Adding Map Layers */
@@ -162,6 +160,7 @@ export const useMapStore = defineStore("map", {
 					}
 					return;
 				}
+				console.log(element)
 				let appendLayerId = { ...element };
 				appendLayerId.layerId = mapLayerId;
 				// 1-2. If the layer doesn't exist, call an API to get the layer data
@@ -214,10 +213,16 @@ export const useMapStore = defineStore("map", {
 			}
 		},
 
-		filterBy(date_idx) {
-			const filters = ["==", "日期", dates[date_idx]];
-			this.map.setFilter("Taipei_Environment_new-circle", filters);
-			this.map.setFilter("Taipei_Environment_new-symbol", filters);
+		filterBy(date_idx, layerId) {
+			if (layerId == "Taipei_Environment_new-circle") {
+				const filters = ["==", "日期", dates[date_idx]];
+				this.map.setFilter(layerId, filters);
+				this.map.setFilter("Taipei_Environment_new-symbol", filters);
+			}
+			// else{
+			// 	const filters = ["==", "update_date", dates[date_idx]];
+			// 	this.map.setFilter(layerId, filters);
+			// }
 		},
 		// 4-1. Using the mapbox source and map config, create a new layer
 		// The styles and configs can be edited in /assets/configs/mapbox/mapConfig.js
@@ -268,8 +273,8 @@ export const useMapStore = defineStore("map", {
 				},
 				source: `${map_config.layerId}-source`,
 			});
-			if (map_config.layerId == "Taipei_Environment_new-circle") {
-				this.filterBy(0);
+			if (map_config.icon == "different") {
+				this.filterBy(0, map_config.layerId);
 			}
 			if (
 				map_config.layerId == "no-smoke-symbol" ||
@@ -521,7 +526,7 @@ export const useMapStore = defineStore("map", {
 						for (let i = 0; i < data.features.length; i++) {
 							const model = data.features[i];
 							const modelOptions = {
-								obj: `${BASE_URL}/models/${model['properties']['model_id']}.glb`,
+								obj: `${BASE_URL}/models/${model["properties"]["model_id"]}.glb`,
 								type: "gltf",
 								scale: 50,
 								units: "meters",

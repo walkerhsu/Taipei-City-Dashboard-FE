@@ -84,6 +84,7 @@ onUnmounted(() => {
 	// center
 	text-align: center;
 }
+
 .list-move, /* apply transition to moving elements */
 .list-enter-active,
 .list-leave-active {

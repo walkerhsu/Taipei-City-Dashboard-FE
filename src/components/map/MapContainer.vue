@@ -14,6 +14,7 @@ const contentStore = useContentStore();
 
 const newSavedLocation = ref("");
 const sliderValue = ref(50);
+const checkedNames = ref([]);
 
 function handleSubmitNewLocation() {
 	mapStore.addNewSavedLocation(newSavedLocation.value);
@@ -25,11 +26,51 @@ function handleSliderChange(e) {
 	const date_idx = parseInt(parseFloat(e.target.value, 10) - 1);
 	filterBy(date_idx);
 }
+function handleCheckChange(e) {
+	console.log(e.target.value);
+	console.log(checkedNames.value[0]);
+	let categories = checkedNames.value[0];
+	if(categories == undefined){
+		categories = '濁度(NTU)';
+	}
+	filterByCategory(categories);
+}
+function filterByCategory(categories) {
+	console.log(categories);
+	let mapConfigs_temp = mapStore.mapConfigs;
+	mapStore.clearOnlyLayers();
+	mapStore.mapConfigs = mapConfigs_temp;
+	console.log(mapStore.mapConfigs);
+	// console.log(
+	// 	mapStore.mapConfigs["water_quality-circle"]["paint"][
+	// 		"circle-radius"
+	// 	][2][1][1]
+	// );
+	// mapStore.mapConfigs["water_quality-circle"]["paint"]['circle-color'][1][1][1][1] = category;
+	for (var i = 1; i <= 9; i += 2) {
+		mapStore.mapConfigs["water_quality-circle"]["paint"]["circle-color"][
+			i
+		][1][1][1] = categories;
+	}
+	mapStore.mapConfigs["water_quality-circle"]["paint"][
+		"circle-radius"
+	][2][1][1] = categories;
+	mapStore.mapConfigs["water_quality-circle"]["paint"][
+		"circle-radius"
+	][1] = 150;
+
+	let in_mapConfigs = [
+		mapStore.mapConfigs["water_quality-circle"],
+		mapStore.mapConfigs["water_quality-symbol"],
+	];
+	console.log(in_mapConfigs);
+	// mapStore.addMapLayer(mapStore.mapConfigs["water_quality-circle"]);
+	mapStore.addToMapLayerList(in_mapConfigs);
+}
 function filterBy(date_idx) {
 	const filters = ["==", "日期", dates[date_idx]];
 	mapStore.map.setFilter("Taipei_Environment_new-circle", filters);
 	mapStore.map.setFilter("Taipei_Environment_new-symbol", filters);
-
 	document.getElementById("date").textContent = dates[date_idx];
 }
 
@@ -69,7 +110,48 @@ onMounted(() => {
 				</div>
 			</div>
 		</div>
+		<div
+			v-if="mapStore.currentLayers.includes('water_quality-circle')"
+			class="map-overlay"
+		>
+			<div class="map-overlay-check">
+				<div>Checked names: {{ checkedNames }}</div>
+				<div class="map-overlay-check-space">
+					<input
+						type="checkbox"
+						id="濁度(NTU)"
+						value="濁度(NTU)"
+						v-model="checkedNames"
+						@input="handleCheckChange"
+					/>
+					<label for="濁度(NTU)">濁度(NTU)</label>
 
+					<input
+						type="checkbox"
+						id="餘氯(mg/L)"
+						value="餘氯(mg/L)"
+						v-model="checkedNames"
+						@input="handleCheckChange"
+					/>
+					<label for="john">餘氯(mg/L)</label>
+
+					<input
+						type="checkbox"
+						id="酸鹼度(PH)"
+						value="酸鹼度(PH)"
+						v-model="checkedNames"
+						@input="handleCheckChange"
+					/>
+					<label for="酸鹼度(PH)">酸鹼度(PH)</label>
+				</div>
+			</div>
+			<div class="map-overlay-inner">
+				<div id="legend" class="legend">
+					<div>Safety Index</div>
+					<div class="bar"></div>
+				</div>
+			</div>
+		</div>
 		<div id="mapboxBox">
 			<div
 				class="mapcontainer-loading"
@@ -133,6 +215,18 @@ onMounted(() => {
 	top: 0;
 	left: 0;
 	padding: 10px;
+	&-check {
+		background-color: black;
+		box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+		border-radius: 3px;
+		padding: 7px;
+		margin-bottom: 10px;
+		&-space {
+			display: flex;
+			flex-direction: row;
+			justify-content: space-between;
+		}
+	}
 	&-inner {
 		background-color: black;
 		box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);

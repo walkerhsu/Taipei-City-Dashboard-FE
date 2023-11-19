@@ -10,6 +10,7 @@ export const chartTypes = {
 	BusChart: "公車行駛圖",
 	TimelineSeparateChart: "折線圖(比較)",
 	TimelineStackedChart: "折線圖(堆疊)",
+	TimelineColorChart: "折線圖(顏色)",
 	GuageChart: "量表圖",
 	RadarChart: "雷達圖",
 	HeatmapChart: "熱力圖",

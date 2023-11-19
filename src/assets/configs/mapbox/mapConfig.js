@@ -316,7 +316,6 @@ export const maplayerCommonPaint = {
 			// 20,
 			// 8,
 			// 40,
-		
 	},
 	// 3d paint
 	"fill-extrusion": {
