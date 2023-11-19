@@ -21,14 +21,11 @@ function handleSubmitNewLocation() {
 }
 
 function handleSliderChange(e) {
-	console.log("in again");
 	// console.log(e.target.value);
 	const date_idx = parseInt(parseFloat(e.target.value, 10) - 1);
-	console.log(date_idx);
 	filterBy(date_idx);
 }
 function filterBy(date_idx) {
-	console.log(dates[date_idx]);
 	const filters = ["==", "日期", dates[date_idx]];
 	mapStore.map.setFilter("Taipei_Environment_new-circle", filters);
 	mapStore.map.setFilter("Taipei_Environment_new-symbol", filters);
