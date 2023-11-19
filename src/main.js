@@ -38,6 +38,7 @@ import BusChart from "./components/charts/BusChart.vue";
 import HeatmapChart from "./components/charts/HeatmapChart.vue";
 import BarChartRace from "./components/charts/BarChartRace.vue";
 import HexagonalBinning from "./components/charts/HexagonalBinning.vue";
+import RoseChart from "./components/charts/RoseChart.vue";
 
 const app = createApp(App);
 
@@ -63,5 +64,6 @@ app.component("BusChart", BusChart);
 app.component("HeatmapChart", HeatmapChart);
 app.component("BarChartRace", BarChartRace);
 app.component("HexagonalBinning", HexagonalBinning);
+app.component("RoseChart", RoseChart);
 
 app.mount("#app");
