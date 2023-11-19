@@ -27,7 +27,7 @@ function drawRoseChart(canvasId) {
 	const context = canvas.getContext("2d");
 	const centerX = canvas.width / 2;
 	const centerY = canvas.height / 2;
-	let maxRadius = Math.min(centerX, centerY) / (props.series.length+1);
+	let maxRadius = Math.min(centerX, centerY) / (props.series.length-0.2);
 	let numPetals = props.series[0]['data'].length;
 
 	let maxValues = []

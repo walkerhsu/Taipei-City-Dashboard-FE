@@ -83,7 +83,8 @@ onMounted(() => {
 	<div id="mapcontainer" class="mapcontainer">
 		<div
 			v-if="
-				mapStore.currentLayers.includes('Taipei_Environment_new-circle')
+				mapStore.currentVisibleLayers
+				.includes('Taipei_Environment_new-circle')
 			"
 			class="map-overlay"
 		>
@@ -111,7 +112,7 @@ onMounted(() => {
 			</div>
 		</div>
 		<div
-			v-if="mapStore.currentLayers.includes('water_quality-circle')"
+			v-if="mapStore.currentLayers.includes('water_quality-circles')"
 			class="map-overlay"
 		>
 			<div class="map-overlay-check">
