@@ -28,7 +28,8 @@ const chartOptions = ref({
 	},
 	plotOptions: {
 		bar: {
-			borderRadius: 5,
+			distributed: props.chart_config.distributed ? true : false,
+			borderRadius: 5
 		},
 	},
 	stroke: {

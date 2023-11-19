@@ -69,6 +69,7 @@ export const useMapStore = defineStore("map", {
 					this.initializeBasicLayers();
 				})
 				.on("click", (event) => {
+					
 					if (this.popup) {
 						this.popup = null;
 					}
@@ -179,7 +180,6 @@ export const useMapStore = defineStore("map", {
 		},
 		updateQueryFeatures(features) {
 			this.queryFeatures = features;
-			console.log(features);
 		},
 		queryBoundaries(lng, lat) {
 			axios
@@ -191,7 +191,6 @@ export const useMapStore = defineStore("map", {
 					}`
 				)
 				.then((rs) => {
-					console.log(rs.data);
 					// this.useMapStore.commit("updateQueryFeatures", rs.data.features);
 					this.updateQueryFeatures(rs.data.features);
 				})
@@ -208,10 +207,10 @@ export const useMapStore = defineStore("map", {
 				this.AddArcMapLayer(map_config, data);
 			} else if (map_config.type === "tube") {
 				this.AddTubeMapLayer(map_config, data);
-			} else if (map_config.type === "3Dmodel") {
+			} else if (map_config.model === "3Dmodel") {
 				this.Add3DModelLayer(map_config, data);
 			} else {
-				this.addMapLayer(map_config, data);
+				this.addMapLayer(map_config);
 			}
 		},
 
@@ -222,7 +221,7 @@ export const useMapStore = defineStore("map", {
 		},
 		// 4-1. Using the mapbox source and map config, create a new layer
 		// The styles and configs can be edited in /assets/configs/mapbox/mapConfig.js
-		addMapLayer(map_config, data) {
+		addMapLayer(map_config) {
 			// console.log(map_config.layerId);
 			// console.log(data["features"][100]["properties"]);
 			let extra_paint_configs = {};
@@ -254,7 +253,6 @@ export const useMapStore = defineStore("map", {
 				};
 			}
 			this.loadingLayers.push("rendering");
-			console.log(map_config.layerId);
 			this.map.addLayer({
 				id: map_config.layerId,
 				type: map_config.type,
@@ -278,7 +276,6 @@ export const useMapStore = defineStore("map", {
 				map_config.layerId == "Taipei_Environment_new-c" ||
 				map_config.layerId == "elecMotor-symbol"
 			) {
-				console.log("in");
 				for (let i = 0; i < districts.length; i++) {
 					let this_district = "";
 					let value = "";
@@ -288,8 +285,6 @@ export const useMapStore = defineStore("map", {
 						value = districts[i][key];
 					}
 					this.map.on("mousemove", value, (e) => {
-						console.log("on hover");
-						console.log(value);
 						if (map_config.layerId == "elecMotor-symbol") {
 							let filters = ["==", "行政區", this_district];
 							this.map.setFilter("elecMotor-symbol", filters);
@@ -303,7 +298,6 @@ export const useMapStore = defineStore("map", {
 									},
 									{ hover: false }
 								);
-								console.log(`${value}-source`);
 							}
 							hoveredPolygonId = e.features[0].id;
 							this.map.setFeatureState(
@@ -313,7 +307,6 @@ export const useMapStore = defineStore("map", {
 								},
 								{ hover: true }
 							);
-							console.log("on hover");
 						}
 					});
 					this.map.on("mouseleave", value, () => {
@@ -340,7 +333,6 @@ export const useMapStore = defineStore("map", {
 			this.loadingLayers = this.loadingLayers.filter(
 				(el) => el !== map_config.layerId
 			);
-			console.log("done");
 		},
 		// 4-2. Add Map Layer for Arc Maps
 		AddArcMapLayer(map_config, data) {
@@ -466,7 +458,7 @@ export const useMapStore = defineStore("map", {
 
 			// console.log("Tube's line geometry: ", lineGeometry);
 
-			const delay = authStore.isMobileDevice ? 2000 : 2000;
+			const delay = authStore.isMobileDevice ? 500 : 2000;
 			setTimeout(() => {
 				this.map.addLayer({
 					id: map_config.layerId,
@@ -513,11 +505,13 @@ export const useMapStore = defineStore("map", {
 		Add3DModelLayer(map_config, data) {
 			// const authStore = useAuthStore();
 			// render a 3D model using three box
+			const authStore = useAuthStore();
 			const tb = (window.tb = new Threebox(
 				this.map,
 				this.map.getCanvas().getContext("webgl"), //get the context from the map canvas
 				{ defaultLights: true }
 			));
+			const delay = authStore.isMobileDevice ? 500 : 2000;
 			setTimeout(() => {
 				this.map.addLayer({
 					id: map_config.layerId,
@@ -552,7 +546,7 @@ export const useMapStore = defineStore("map", {
 				this.loadingLayers = this.loadingLayers.filter(
 					(el) => el !== map_config.layerId
 				);
-			}, 2000);
+			}, delay);
 		},
 		//  5. Turn on the visibility for a exisiting map layer
 		turnOnMapLayerVisibility(mapLayerId) {
@@ -677,10 +671,11 @@ export const useMapStore = defineStore("map", {
 		// Add a filter based on a property on a map layer
 		addLayerFilter(layer_id, property, key, map_config) {
 			const dialogStore = useDialogStore();
+			// console.log(map_config.type)
 			if (!this.map || dialogStore.dialogs.moreInfo) {
 				return;
 			}
-			if (map_config && map_config.type === "arc") {
+			if (map_config && (map_config.type === "arc")) {
 				this.map.removeLayer(layer_id);
 				let toBeFiltered = {
 					...this.map.getSource(`${layer_id}-source`)._data,
@@ -689,7 +684,9 @@ export const useMapStore = defineStore("map", {
 					(el) => el.properties[property] === key
 				);
 				map_config.layerId = layer_id;
-				this.AddArcMapLayer(map_config, toBeFiltered);
+				if (map_config.type === "arc") {
+					this.AddArcMapLayer(map_config, toBeFiltered);
+				}
 				return;
 			}
 			this.map.setFilter(layer_id, ["==", ["get", property], key]);

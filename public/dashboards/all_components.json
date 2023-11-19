@@ -2508,7 +2508,7 @@
 			],
 			"history_data": true,
 			"chart_config": {
-				"types": ["BarChart", "DonutChart", "BarChartRace"],
+				"types": ["BarChart", "DonutChart"],
 				"color": ["#fc9f0b", "#dac117", "#FDD79B", "#CA7F09"],
 				"unit": "件",
 				"map_filter": [
@@ -4900,7 +4900,7 @@
 			"id": 203,
 			"index": "crime",
 			"chart_config": {
-				"types": ["HexagonalBinning" ]
+				"types": ["HexagonalBinning"]
 			},
 			"name": "暴力犯罪",
 			"source": "社會局",
@@ -4911,7 +4911,7 @@
 		"301": {
 			"id": 301,
 			"index": "taipei_environment",
-			"history_data": false,
+			"history_data": true,
 			"map_config": [
 				{
 					"index": "taipei_environment",
@@ -4953,8 +4953,22 @@
 			],
 			"chart_config": {
 				"types": ["ColumnChart"],
-				"color": ["#B4654A"],
+				"color": [
+					"#17eb0c",
+					"#17eb0c",
+					"#e3eb0c",
+					"#17eb0c",
+					"#17eb0c",
+					"#17eb0c",
+					"#e3eb0c",
+					"#e3eb0c",
+					"#e3eb0c",
+					"#17eb0c",
+					"#17eb0c",
+					"#e3eb0c"
+				],
 				"unit": "",
+				"distributed": true,
 				"map_filter": [
 					"測站",
 					[
@@ -4973,7 +4987,7 @@
 					]
 				]
 			},
-			"name": "台北市環境空氣品質",
+			"name": "AQI(空氣品質指標)",
 			"source": "環境品質資訊網",
 			"time_from": "2023-11-10T00:00:00+08:00",
 			"time_to": "2023-11-16T00:00:00+08:00",
@@ -5034,23 +5048,7 @@
 			"map_config": [
 				{
 					"index": "playground",
-					"paint": {
-						"circle-color": [
-							"case",
-							["<", ["to-number", ["get", "AQI"]], 50],
-							"green",
-							["<", ["to-number", ["get", "AQI"]], 100],
-							"yellow",
-							["<", ["to-number", ["get", "AQI"]], 150],
-							"orange",
-							["<", ["to-number", ["get", "AQI"]], 200],
-							"red",
-							["<", ["to-number", ["get", "AQI"]], 300],
-							"purple",
-							"maroon"
-						],
-						"circle-stroke-width": 1
-					},
+					"paint": {},
 					"property": [
 						{
 							"key": "location",
@@ -5066,7 +5064,8 @@
 						}
 					],
 					"title": "環境空氣品質",
-					"type": "3Dmodel"
+					"type": "circle",
+					"model": "3Dmodel"
 				}
 			],
 			"chart_config": {
@@ -5076,6 +5075,23 @@
 					"#fdb7ba",
 					"#fb8c8c",
 					"#C53E5E"
+				],
+				"map_filter": [
+					"district",
+					[
+						"北投區",
+						"士林區",
+						"南港區",
+						"中山區",
+						"文山區",
+						"大安區",
+						"大同區",
+						"內湖區",
+						"萬華區",
+						"信義區",
+						"松山區",
+						"中正區"
+					]
 				],
 				"types": ["BarChart", "DonutChart"],
 				"unit": "件"
@@ -5171,9 +5187,7 @@
 							"#dd47ff"
 						]
 					},
-					"property": [
-						{ "key": "name", "name": "路線編號" }
-					],
+					"property": [{ "key": "name", "name": "路線編號" }],
 					"title": "電動公車路線圖",
 					"type": "line"
 				}
@@ -5181,7 +5195,8 @@
 			"chart_config": {
 				"types": ["MapLegend"],
 				"map_filter": [
-					"name", [
+					"name",
+					[
 						"中山幹線",
 						"羅斯福路幹線",
 						"266區間車",
@@ -5201,7 +5216,8 @@
 						"紅12",
 						"藍36",
 						"棕2"
-					]]
+					]
+				]
 			},
 			"chart_data": [
 				{
@@ -5306,6 +5322,92 @@
 			"time_to": "2023-11-16T00:00:00+08:00",
 			"update_freq": 1,
 			"update_freq_unit": "day",
+			"short_desc": "",
+			"long_desc": "",
+			"use_case": "",
+			"tags": [],
+			"links": [
+				"https://data.taipei/dataset/detail?id=6079d6e8-7657-4007-b1c2-429733dbd762"
+			],
+			"contributors": ["tuic"]
+		},
+		"308": {
+			"id": 308,
+			"index": "water_quality",
+			"history_data": false,
+			"map_config": [
+				{
+					"index": "water_quality",
+					"paint": {
+						"circle-color": [
+							"case",
+							["<=", ["get", "濁度(NTU)"], 1],
+							"#00FF00",
+							["<=", ["get", "濁度(NTU)"], 3],
+							"#FFFF00",
+							["<=", ["get", "濁度(NTU)"], 5],
+							"#FFA500",
+							["<=", ["get", "濁度(NTU)"], 7],
+							"#FF0000",
+							["<=", ["get", "濁度(NTU)"], 10],
+							"#800080",
+							"#800080"
+						],
+						"circle-opacity": 0.8
+					},
+					"property": [
+						{
+							"key": "濁度(NTU)",
+							"name": "濁度(NTU)"
+						},
+						{
+							"key": "餘氯(mg/L)",
+							"name": "餘氯(mg/L)"
+						},
+						{
+							"key": "酸鹼度(PH)",
+							"name": "酸鹼度(PH)"
+						},
+						{
+							"key": "district",
+							"name": "district"
+						},
+						{
+							"key": "code_name",
+							"name": "地址"
+						}
+					],
+					"title": "台北市水質資料",
+					"type": "circle"
+				}
+			],
+			"chart_config": {
+				"color": ["red", "blue", "yellow"],
+				"map_filter": [
+					"district",
+					[
+						"BEITOU",
+						"SHILIN",
+						"NANGANG",
+						"ZHONGSHAN",
+						"WENSHAN",
+						"DAAN",
+						"DATONG",
+						"NEIHU",
+						"WANHUA",
+						"XINYI",
+						"SONGSHAN",
+						"ZHONGZHENG"
+					]
+				],
+				"types": ["RoseChart"]
+			},
+			"name": "台北水質",
+			"source": "台北自來水事業處",
+			"time_from": null,
+			"time_to": null,
+			"update_freq": 1,
+			"update_freq_unit": "year",
 			"short_desc": "",
 			"long_desc": "",
 			"use_case": "",

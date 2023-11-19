@@ -14,4 +14,5 @@ export const chartTypes = {
 	RadarChart: "雷達圖",
 	HeatmapChart: "熱力圖",
 	HexagonalBinning: "六角形圖",
+	RoseChart: "羅斯圖",
 };
